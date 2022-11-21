@@ -10,45 +10,38 @@
 class CBroadPhaseSAP : public IBroadPhase
 {
 public:
-	int compare(const void* a, const void* b)
+	static int compare(const void* a, const void* b)
 	{
-		if (static_cast<const CPolygonPtr*>(a)->get()->GetAABB()->GetMinX() < static_cast<const CPolygonPtr*>(b)->get()->GetAABB()->GetMinX())
+		const float A = static_cast<const CPolygonPtr*>(a)->get()->GetAABB()->GetMinX();
+		const float B = static_cast<const CPolygonPtr*>(b)->get()->GetAABB()->GetMinX();
+		if (A < B)
 			return -1;
 		return 1;
 	}
 
 	virtual void GetCollidingPairsToCheck(std::vector<SPolygonPair>& pairsToCheck) override
 	{
-		if(sortedList.empty())
+		if (sortedList.empty())
 			sortedList = gVars->pWorld->GetPolygons();
-		size_t poly_count = gVars->pWorld->GetPolygonCount();
-		std::vector<CPolygonPtr> polyList = gVars->pWorld->GetPolygons();
+		std::qsort(sortedList.data(), sortedList.size(), sizeof(CPolygonPtr), compare);
 
-		qsort(sortedList.data(), sortedList.size(), sizeof(CPolygonPtr), compare);
-		std::vector<CPolygonPtr> sortedList;
-		for (CPolygonPtr poly : polyList)
+		size_t sortedListSize = sortedList.size();
+		for (size_t i = 0; i < sortedListSize; i++)
 		{
-			CAABB* aabb = poly.get()->GetAABB();
-			for (size_t i = 0; i < sortedList.size(); i++)
+			CAABB* a = sortedList[i].get()->GetAABB();
+			for (size_t j = i + 1; j < sortedListSize; j++)
 			{
-				if (aabb->GetMinX() <= sortedList[i].get()->GetAABB()->GetMinX())
-				{
-					sortedList.
-					sortedList.insert(i, poly);
+				CAABB* b = sortedList[j].get()->GetAABB();
+				const float AMaxX = a->GetMaxX();
+				const float BMinX = b->GetMinX();
+				if (AMaxX < BMinX)
 					break;
+				if (a->DoesOtherAxisOverlap(*b))
+				{
+					a->isOverlaping = true;
+					b->isOverlaping = true;
+					pairsToCheck.push_back(SPolygonPair(sortedList[i], sortedList[j]));
 				}
-			}
-		}
-		for (size_t i = 0; i < poly_count; ++i)
-		{
-			CPolygonPtr APoly = gVars->pWorld->GetPolygon(i);
-			CAABB* A = APoly.get()->GetAABB();
-			for (size_t j = i + 1; j < poly_count; ++j)
-			{
-				CPolygonPtr BPoly = gVars->pWorld->GetPolygon(j);
-				CAABB* B = BPoly.get()->GetAABB();
-				if (A->DoesOverlap(*B))
-					pairsToCheck.push_back(SPolygonPair(APoly, BPoly));
 			}
 		}
 	}

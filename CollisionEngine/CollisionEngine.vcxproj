@@ -98,6 +98,7 @@
     <ClInclude Include="Behaviors\SphereSimulation.h" />
     <ClInclude Include="BroadPhase.h" />
     <ClInclude Include="BroadPhaseBrut.h" />
+    <ClInclude Include="BroadPhaseImprovedBrut.h" />
     <ClInclude Include="BroadPhaseSAP.h" />
     <ClInclude Include="GlobalVariables.h" />
     <ClInclude Include="GLObject.h" />

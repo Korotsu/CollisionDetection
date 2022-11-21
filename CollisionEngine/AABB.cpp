@@ -21,6 +21,21 @@ bool CAABB::DoesOverlap(CAABB& testedAABB)
 	return false;
 }
 
+/*
+*	float Amin = min.y + position.y;
+	float Amax = max.y + position.y;
+	float Bmin = testedAABB.min.y + testedAABB.position.y;
+	float Bmax = testedAABB.max.y + testedAABB.position.y;
+	if (Amin <= Bmax && Bmin <= Amax)
+*/
+bool CAABB::DoesOtherAxisOverlap(const CAABB& testedAABB)
+{
+	if ((min.y + position.y) <= (testedAABB.max.y + testedAABB.position.y) &&
+		(testedAABB.min.y + testedAABB.position.y) <= (max.y + position.y))
+		return true;
+	return false;
+}
+
 void CAABB::Draw()
 {
 	// Set transforms (assuming model view mode is set)

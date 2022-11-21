@@ -108,6 +108,9 @@
     <ClInclude Include="AABB.h">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
+    <ClInclude Include="BroadPhaseImprovedBrut.h">
+      <Filter>Fichiers sources\BroadPhaseAlgorithms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

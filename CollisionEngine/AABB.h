@@ -14,6 +14,7 @@ public:
 	~CAABB() = default;
 
 	bool DoesOverlap(CAABB& testedAABB);
+	bool DoesOtherAxisOverlap(const CAABB& testedAABB);
 	void ApplyRotation(const Mat2& rotation);
 	void ComputePoints(const std::vector<Vec2>& inPoints, const Mat2& inRotation);
 	void Draw();
@@ -23,7 +24,12 @@ public:
 
 	const float& GetMinX()
 	{
-		return min.x;
+		return min.x + position.x;
+	}
+
+	const float& GetMaxX()
+	{
+		return max.x + position.x;
 	}
 };
 #endif // _AABB_H_
