@@ -46,8 +46,9 @@ public:
 			functor(poly);
 		}
 	}
-	size_t		GetPolygonCount() const;
-	CPolygonPtr	GetPolygon(size_t index);
+	size_t						GetPolygonCount() const;
+	const std::vector<CPolygonPtr>& GetPolygons();
+	CPolygonPtr&					GetPolygon(size_t index);
 
 	template<typename TFunctor>
 	void	ForEachBehavior(TFunctor functor)

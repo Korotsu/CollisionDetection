@@ -6,6 +6,7 @@
 class IBroadPhase
 {
 public:
+	std::vector<CPolygonPtr> sortedList;
 	virtual void GetCollidingPairsToCheck(std::vector<SPolygonPair>& pairsToCheck) = 0;
 };
 

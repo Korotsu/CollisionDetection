@@ -20,5 +20,10 @@ public:
 	Vec2 position;
 	Mat2 rotation;
 	bool isOverlaping = false;
+
+	const float& GetMinX()
+	{
+		return min.x;
+	}
 };
 #endif // _AABB_H_
