@@ -179,22 +179,22 @@ struct Mat2
 		*this = *this * matRot;
 	}
 
-	Mat2 operator*(const Mat2& rhs) const
+	inline Mat2 operator*(const Mat2& rhs) const
 	{
 		return Mat2(X.x * rhs.X.x + Y.x * rhs.X.y, X.x * rhs.Y.x + Y.x * rhs.Y.y, X.y * rhs.X.x + Y.y * rhs.X.y, X.y * rhs.Y.x + Y.y * rhs.Y.y);
 	}
 
-	Vec2 operator*(const Vec2& vec) const
+	inline Vec2 operator*(const Vec2& vec) const
 	{
 		return Vec2(X.x * vec.x + Y.x * vec.y, X.y * vec.x + Y.y * vec.y);
 	}
 
-	bool operator==(const Mat2& other) const
+	inline bool operator==(const Mat2& other) const
 	{
 		return (X.x == other.X.x && X.y == other.X.y && Y.x == other.Y.x && Y.y == other.Y.y);
 	}
 
-	bool operator!=(const Mat2& other) const
+	inline bool operator!=(const Mat2& other) const
 	{
 		return (X.x != other.X.x || X.y != other.X.y || Y.x != other.Y.x || Y.y != other.Y.y);
 	}
