@@ -1,0 +1,9 @@
+﻿libdrawtext.lib(drawgl.obj) : warning LNK4075: ' /EDITANDCONTINUE' ignoré à cause de la spécification '/OPT:ICF'
+LINK : warning LNK4098: conflit entre la bibliothèque par défaut 'MSVCRTD' et les autres bibliothèques ; utilisez /NODEFAULTLIB:library
+  Génération de code en cours
+  0 of 1008 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Fin de la génération du code
+LINK : warning LNK4286: le symbole '___iob_func' défini dans '* CIL library *(* CIL module *)' est importé par 'libdrawtext.lib(font.obj)'
+  CollisionEngine.vcxproj -> C:\Documents\Mathématique\Moteur Physique\repo\BIN\Release\CollisionEngine.exe

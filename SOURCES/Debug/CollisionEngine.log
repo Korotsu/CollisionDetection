@@ -1,0 +1,26 @@
+﻿cl : ligne de commande warning D9002: option '/NODEFAULTLIB:libcmt.lib' inconnue ignorée
+cl : ligne de commande warning D9002: option '/NODEFAULTLIB:libcmtd.lib' inconnue ignorée
+cl : ligne de commande warning D9002: option '/NODEFAULTLIB:msvcrtd.lib' inconnue ignorée
+  AABB.cpp
+C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\GLObject.h(4,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'GL/glew.h' : No such file or directory
+  GLObject.cpp
+C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\GLObject.h(4,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'GL/glew.h' : No such file or directory
+  main.cpp
+C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\GLObject.h(4,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'GL/glew.h' : No such file or directory
+  GlobaleVariables.cpp
+  Maths.cpp
+  PhysicEngine.cpp
+C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\GLObject.h(4,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'GL/glew.h' : No such file or directory
+  Polygon.cpp
+C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\GLObject.h(4,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'GL/glew.h' : No such file or directory
+  Renderer.cpp
+C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\Renderer.cpp(2,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'GL/glew.h' : No such file or directory
+  SceneManager.cpp
+C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\GLObject.h(4,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'GL/glew.h' : No such file or directory
+  SDLRenderWindow.cpp
+C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\SDLRenderWindow.cpp(3,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'SDL.h' : No such file or directory
+  Timer.cpp
+  stdafx.cpp
+  World.cpp
+C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\GLObject.h(4,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'GL/glew.h' : No such file or directory
+  Génération de code en cours...
