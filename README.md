@@ -9,5 +9,9 @@ The goal of the project is to implement a performant collision detection algorit
 
 **Debug tools** : I also created an optimized AABB creator and drawer to create/modify AABB only when needed to save performance.
 I also added an input on F8 to visualize AABB and their colliding state (blue == not colliding, green == colliding).
-
+![001](./SCREENS/Gifs/001.gif)
+![002](./SCREENS/Gifs/002.gif)
+![003](./SCREENS/Gifs/003.gif)
+![004](./SCREENS/Gifs/004.gif)
+![005](./SCREENS/Gifs/005.gif)
 > Note: All gifs/clips were taken with gyazo, as so the framerate is low to save on file size.
