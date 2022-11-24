@@ -14,8 +14,8 @@ private:
 	{
 		gVars->pPhysicEngine->ForEachCollision([&](const SCollision& collision)
 		{
-			collision.polyA->position += collision.normal * collision.distance * -0.5f;
-			collision.polyB->position += collision.normal * collision.distance * 0.5f;
+			collision.polyA->AddPosition(collision.normal * collision.distance * -0.5f);
+			collision.polyB->AddPosition(collision.normal * collision.distance * 0.5f);
 
 			collision.polyA->speed.Reflect(collision.normal);
 			collision.polyB->speed.Reflect(collision.normal);
@@ -26,28 +26,29 @@ private:
 
 		gVars->pWorld->ForEachPolygon([&](CPolygonPtr poly)
 		{
-			poly->position += poly->speed * frameTime;
-
-			if (poly->position.x < -hWidth)
+			poly->AddPosition(poly->speed * frameTime);
+			Vec2 result = poly->position;
+			if (result.x < -hWidth)
 			{
-				poly->position.x = -hWidth;
+				result.x = -hWidth;
 				poly->speed.x *= -1.0f;
 			}
-			else if (poly->position.x > hWidth)
+			else if (result.x > hWidth)
 			{
-				poly->position.x = hWidth;
+				result.x = hWidth;
 				poly->speed.x *= -1.0f;
 			}
-			if (poly->position.y < -hHeight)
+			if (result.y < -hHeight)
 			{
-				poly->position.y = -hHeight;
+				result.y = -hHeight;
 				poly->speed.y *= -1.0f;
 			}
-			else if (poly->position.y > hHeight)
+			else if (result.y > hHeight)
 			{
-				poly->position.y = hHeight;
+				result.y = hHeight;
 				poly->speed.y *= -1.0f;
 			}
+			poly->SetPosition(result);
 		});
 	}
 };

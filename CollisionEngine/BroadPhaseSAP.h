@@ -10,7 +10,7 @@
 class CBroadPhaseSAP : public IBroadPhase
 {
 public:
-	static int compare(const void* a, const void* b)
+	inline static int compare(const void* a, const void* b)
 	{
 		const float A = static_cast<const CPolygonPtr*>(a)->get()->GetAABB()->GetMinX();
 		const float B = static_cast<const CPolygonPtr*>(b)->get()->GetAABB()->GetMinX();

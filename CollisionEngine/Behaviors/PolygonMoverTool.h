@@ -47,7 +47,7 @@ class CPolygonMoverTool : public CBehavior
 
 				if (m_translate)
 				{
-					m_selectedPoly->position += mousePoint - m_prevMousePos;
+					m_selectedPoly->AddPosition(mousePoint - m_prevMousePos);
 					m_selectedPoly->speed = Vec2();
 				}
 				else
@@ -56,6 +56,7 @@ class CPolygonMoverTool : public CBehavior
 					Vec2 to = mousePoint - m_selectedPoly->position;
 
 					m_selectedPoly->rotation.SetAngle(m_clickAngle + from.Angle(to)); 
+					m_selectedPoly->GetAABB()->ApplyRotation(m_selectedPoly->rotation);
 					m_selectedPoly->speed = Vec2();
 				}
 

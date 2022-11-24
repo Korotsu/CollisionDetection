@@ -20,6 +20,24 @@ public:
 	Vec2				position;
 	Mat2				rotation;
 
+	inline void SetPosition(const Vec2& inPosition)
+	{
+		position = inPosition;
+		GetAABB()->position = inPosition;
+	}
+
+	inline void AddPosition(const Vec2& inPosition)
+	{
+		position += inPosition;
+		GetAABB()->position += inPosition;
+	}
+
+	inline void SetRotation(const Mat2& inRotation)
+	{
+		rotation = inRotation;
+		GetAABB()->ApplyRotation(inRotation);
+	}
+
 	void				Build();
 	void				Draw();
 	size_t				GetIndex() const;
@@ -27,9 +45,9 @@ public:
 	CAABB* GetAABB() {
 		if (m_aabb == nullptr)
 			m_aabb = new CAABB(points, position, rotation);
-		m_aabb->position = position;
-		if (m_aabb->rotation != rotation)
-			m_aabb->ApplyRotation(rotation);
+		//m_aabb->position = position;
+		/*if (m_aabb->rotation != rotation)
+			m_aabb->ApplyRotation(rotation);*/
 		return m_aabb;
 	};
 

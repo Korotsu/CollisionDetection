@@ -102,7 +102,7 @@ private:
 
 		for (CPolygonPtr& circle : m_circles)
 		{
-			circle->position += circle->speed * frameTime;
+			circle->AddPosition(circle->speed * frameTime);
 		}
 	}
 
@@ -110,7 +110,7 @@ private:
 	{
 		CPolygonPtr circle = gVars->pWorld->AddSymetricPolygon(radius, 50);
 		circle->density = 0.0f;
-		circle->position = pos;
+		circle->SetPosition(pos);
 		m_circles.push_back(circle);
 
 		return circle;
