@@ -1,7 +1,6 @@
 .vs/
 CollisionEngine/Debug/
 CollisionEngine/Release/
-Libs/
 Debug/font.ttf
 Release/font.ttf
 Target/font.ttf
