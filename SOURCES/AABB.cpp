@@ -64,6 +64,8 @@ void CAABB::Draw()
 
 void CAABB::ComputePoints(const std::vector<Vec2>& inPoints, const Mat2& inRotation)
 {
+	min = Vec2(FLT_MAX, FLT_MAX);
+	max = Vec2(-FLT_MAX, -FLT_MAX);
 	for (Vec2 point : inPoints)
 	{
 		point = inRotation * point;
@@ -80,10 +82,11 @@ void CAABB::ComputePoints(const std::vector<Vec2>& inPoints, const Mat2& inRotat
 			max.y = point.y;
 	}
 	points = { Vec2(min.x, min.y), Vec2(min.x, max.y), Vec2(max.x, max.y), Vec2(max.x, min.y) };
+	UpdateBuffers();
 }
 
-void CAABB::ApplyRotation(const Mat2& inRotation)
+void CAABB::ApplyRotation(const std::vector<Vec2>& inPoints, const Mat2& inRotation)
 {
 	rotation = inRotation;
-	ComputePoints(points, rotation);
+	ComputePoints(inPoints, rotation);
 }

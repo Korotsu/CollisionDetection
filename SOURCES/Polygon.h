@@ -35,7 +35,7 @@ public:
 	inline void SetRotation(const Mat2& inRotation)
 	{
 		rotation = inRotation;
-		GetAABB()->ApplyRotation(inRotation);
+		GetAABB()->ApplyRotation(points, inRotation);
 	}
 
 	void				Build();

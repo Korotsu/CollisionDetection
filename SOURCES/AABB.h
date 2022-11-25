@@ -15,7 +15,7 @@ public:
 
 	bool DoesOverlap(CAABB& testedAABB);
 	bool DoesOtherAxisOverlap(const CAABB& testedAABB);
-	void ApplyRotation(const Mat2& rotation);
+	void ApplyRotation(const std::vector<Vec2>& inPoints, const Mat2& inRotation);
 	void ComputePoints(const std::vector<Vec2>& inPoints, const Mat2& inRotation);
 	void Draw();
 	Vec2 position;

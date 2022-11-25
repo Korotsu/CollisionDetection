@@ -50,3 +50,21 @@ void CGLObject::DestroyBuffers()
 		m_vertexBufferId = 0;
 	}
 }
+
+void CGLObject::UpdateBuffers()
+{
+	float* vertices = new float[3 * points.size()];
+	for (size_t i = 0; i < points.size(); ++i)
+	{
+		vertices[3 * i] = points[i].x;
+		vertices[3 * i + 1] = points[i].y;
+		vertices[3 * i + 2] = 0.0f;
+	}
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * points.size(), vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	delete[] vertices;
+}

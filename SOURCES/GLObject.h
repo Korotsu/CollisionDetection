@@ -16,6 +16,7 @@ public:
 protected:
 	void				CreateBuffers();
 	void				BindBuffers();
+	void				UpdateBuffers();
 	void				DestroyBuffers();
 
 	GLuint				m_vertexBufferId;
