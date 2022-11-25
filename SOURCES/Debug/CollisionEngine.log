@@ -1,5 +1,1 @@
-﻿cl : ligne de commande warning D9002: option '/NODEFAULTLIB:libcmt.lib' inconnue ignorée
-cl : ligne de commande warning D9002: option '/NODEFAULTLIB:libcmtd.lib' inconnue ignorée
-cl : ligne de commande warning D9002: option '/NODEFAULTLIB:msvcrtd.lib' inconnue ignorée
-  Renderer.cpp
-  CollisionEngine.vcxproj -> C:\Documents\Mathématique\Moteur Physique\repo\BIN\Debug\CollisionEngine.exe
+﻿
