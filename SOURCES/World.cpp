@@ -116,7 +116,7 @@ size_t	CWorld::GetPolygonCount() const
 	return m_polygons.size();
 }
 
-inline const std::vector<CPolygonPtr>& CWorld::GetPolygons()
+const std::vector<CPolygonPtr>& CWorld::GetPolygons()
 {
 	return m_polygons;
 }

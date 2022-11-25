@@ -1,25 +1,23 @@
-c:\documents\mathématique\moteur physique\repo\sources\debug\vc142.pdb
-c:\documents\mathématique\moteur physique\repo\sources\debug\vc142.idb
-c:\documents\mathématique\moteur physique\repo\sources\debug\world.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\stdafx.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\timer.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\sdlrenderwindow.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\scenemanager.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\renderer.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\polygon.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\physicengine.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\maths.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\globalevariables.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\main.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\globject.obj
-c:\documents\mathématique\moteur physique\repo\sources\debug\aabb.obj
-c:\documents\mathématique\moteur physique\repo\bin\debug\collisionengine.exe
-c:\documents\mathématique\moteur physique\repo\sources\debug\collisionengine.ilk
-c:\documents\mathématique\moteur physique\repo\bin\debug\collisionengine.pdb
-c:\documents\mathématique\moteur physique\repo\\bin\debug\collisionengine.pdb
-c:\documents\mathématique\moteur physique\repo\sources\debug\collisionengine.tlog\cl.command.1.tlog
-c:\documents\mathématique\moteur physique\repo\sources\debug\collisionengine.tlog\cl.read.1.tlog
-c:\documents\mathématique\moteur physique\repo\sources\debug\collisionengine.tlog\cl.write.1.tlog
-c:\documents\mathématique\moteur physique\repo\sources\debug\collisionengine.tlog\link.command.1.tlog
-c:\documents\mathématique\moteur physique\repo\sources\debug\collisionengine.tlog\link.read.1.tlog
-c:\documents\mathématique\moteur physique\repo\sources\debug\collisionengine.tlog\link.write.1.tlog
+d:\collisionengine\collisionengine\collisionengine\debug\vc120.pdb
+d:\collisionengine\collisionengine\collisionengine\debug\vc120.idb
+d:\collisionengine\collisionengine\collisionengine\debug\inertiatensor.obj
+d:\collisionengine\collisionengine\collisionengine\debug\main.obj
+d:\collisionengine\collisionengine\collisionengine\debug\globalevariables.obj
+d:\collisionengine\collisionengine\collisionengine\debug\maths.obj
+d:\collisionengine\collisionengine\collisionengine\debug\physicengine.obj
+d:\collisionengine\collisionengine\collisionengine\debug\polygon.obj
+d:\collisionengine\collisionengine\collisionengine\debug\renderer.obj
+d:\collisionengine\collisionengine\collisionengine\debug\scenemanager.obj
+d:\collisionengine\collisionengine\collisionengine\debug\sdlrenderwindow.obj
+d:\collisionengine\collisionengine\collisionengine\debug\timer.obj
+d:\collisionengine\collisionengine\collisionengine\debug\stdafx.obj
+d:\collisionengine\collisionengine\collisionengine\debug\world.obj
+d:\collisionengine\collisionengine\debug\collisionengine.ilk
+d:\collisionengine\collisionengine\debug\collisionengine.exe
+d:\collisionengine\collisionengine\debug\collisionengine.pdb
+d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\cl.command.1.tlog
+d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\cl.read.1.tlog
+d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\cl.write.1.tlog
+d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\link.command.1.tlog
+d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\link.read.1.tlog
+d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\link.write.1.tlog
