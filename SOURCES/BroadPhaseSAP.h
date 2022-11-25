@@ -34,7 +34,7 @@ public:
 		if (sortedList.empty())
 			sortedList = gVars->pWorld->GetPolygons();
 		std::qsort(sortedList.data(), sortedList.size(), sizeof(CPolygonPtr), compare);
-		//std::sort(sortedList.begin(), sortedList.end(), compare2);
+		//std::sort(sortedList.begin(), sortedList.end(), compare2); other sort for benchmark
 
 		size_t sortedListSize = sortedList.size();
 		for (size_t i = 0; i < sortedListSize; i++)
