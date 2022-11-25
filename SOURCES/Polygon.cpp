@@ -6,12 +6,12 @@
 #include "GlobalVariables.h"
 
 CPolygon::CPolygon(size_t index)
-	: CGLObject(), m_index(index), density(0.1f)
+	: CGLObject(), m_index(index), density(0.1f), aabb(new CAABB(points, position, rotation))
 {}
 
 CPolygon::~CPolygon()
 {
-	delete m_aabb;
+	delete aabb;
 }
 
 void CPolygon::Build()
@@ -20,6 +20,7 @@ void CPolygon::Build()
 
 	CreateBuffers();
 	BuildLines();
+	aabb->ApplyRotation(points, rotation);
 }
 
 void CPolygon::Draw()
@@ -40,7 +41,7 @@ void CPolygon::Draw()
 	glPopMatrix();
 
 	if (gVars->bAABB)
-		GetAABB()->Draw();
+		aabb->Draw();
 }
 
 size_t	CPolygon::GetIndex() const

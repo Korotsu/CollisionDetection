@@ -6,14 +6,24 @@
 #include "Polygon.h"
 #include "GlobalVariables.h"
 #include "World.h"
+#include <algorithm>
 
 class CBroadPhaseSAP : public IBroadPhase
 {
 public:
 	inline static int compare(const void* a, const void* b)
 	{
-		const float A = static_cast<const CPolygonPtr*>(a)->get()->GetAABB()->GetMinX();
-		const float B = static_cast<const CPolygonPtr*>(b)->get()->GetAABB()->GetMinX();
+		const float A = static_cast<const CPolygonPtr*>(a)->get()->aabb->GetMinX();
+		const float B = static_cast<const CPolygonPtr*>(b)->get()->aabb->GetMinX();
+		if (A < B)
+			return -1;
+		return 1;
+	}
+
+	inline static int compare2(const CPolygonPtr a, const CPolygonPtr b)
+	{
+		const float A = a.get()->aabb->GetMinX();
+		const float B = b.get()->aabb->GetMinX();
 		if (A < B)
 			return -1;
 		return 1;
@@ -24,14 +34,15 @@ public:
 		if (sortedList.empty())
 			sortedList = gVars->pWorld->GetPolygons();
 		std::qsort(sortedList.data(), sortedList.size(), sizeof(CPolygonPtr), compare);
+		//std::sort(sortedList.begin(), sortedList.end(), compare2);
 
 		size_t sortedListSize = sortedList.size();
 		for (size_t i = 0; i < sortedListSize; i++)
 		{
-			CAABB* a = sortedList[i].get()->GetAABB();
+			CAABB* a = sortedList[i].get()->aabb;
 			for (size_t j = i + 1; j < sortedListSize; j++)
 			{
-				CAABB* b = sortedList[j].get()->GetAABB();
+				CAABB* b = sortedList[j].get()->aabb;
 				const float AMaxX = a->GetMaxX();
 				const float BMinX = b->GetMinX();
 				if (AMaxX < BMinX)

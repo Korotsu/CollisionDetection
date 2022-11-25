@@ -23,33 +23,30 @@ public:
 	inline void SetPosition(const Vec2& inPosition)
 	{
 		position = inPosition;
-		GetAABB()->position = inPosition;
+		aabb->position = inPosition;
 	}
 
 	inline void AddPosition(const Vec2& inPosition)
 	{
 		position += inPosition;
-		GetAABB()->position += inPosition;
+		aabb->position += inPosition;
 	}
 
 	inline void SetRotation(const Mat2& inRotation)
 	{
 		rotation = inRotation;
-		GetAABB()->ApplyRotation(points, inRotation);
+		aabb->ApplyRotation(points, inRotation);
 	}
 
 	void				Build();
 	void				Draw();
 	size_t				GetIndex() const;
 
-	CAABB* GetAABB() {
+	/*CAABB* GetAABB() {
 		if (m_aabb == nullptr)
 			m_aabb = new CAABB(points, position, rotation);
-		//m_aabb->position = position;
-		/*if (m_aabb->rotation != rotation)
-			m_aabb->ApplyRotation(rotation);*/
 		return m_aabb;
-	};
+	};*/
 
 	Vec2				TransformPoint(const Vec2& point) const;
 	Vec2				InverseTransformPoint(const Vec2& point) const;
@@ -62,13 +59,11 @@ public:
 	// Physics
 	float				density;
 	Vec2				speed;
+	CAABB*				aabb;
 
 private:
 	void				BuildLines();
 	size_t				m_index;
-
-	CAABB* m_aabb;
-
 	std::vector<Line>	m_lines;
 };
 

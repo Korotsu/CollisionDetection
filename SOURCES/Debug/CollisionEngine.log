@@ -1,16 +1,5 @@
 ﻿cl : ligne de commande warning D9002: option '/NODEFAULTLIB:libcmt.lib' inconnue ignorée
 cl : ligne de commande warning D9002: option '/NODEFAULTLIB:libcmtd.lib' inconnue ignorée
 cl : ligne de commande warning D9002: option '/NODEFAULTLIB:msvcrtd.lib' inconnue ignorée
-  AABB.cpp
-  PhysicEngine.cpp
-  Polygon.cpp
   Renderer.cpp
-  SceneManager.cpp
-  World.cpp
-C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\World.cpp(51,62): warning C4244: 'argument' : conversion de 'const size_t' en 'float', perte possible de données
-C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\World.cpp(51,44): warning C4244: 'argument' : conversion de 'const size_t' en 'float', perte possible de données
-  main.cpp
-  Génération de code en cours...
-C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\AABB.h(32): warning C4172: retourne l'adresse d'une variable locale ou  temporaire
-C:\Documents\Mathématique\Moteur Physique\repo\SOURCES\AABB.h(27): warning C4172: retourne l'adresse d'une variable locale ou  temporaire
   CollisionEngine.vcxproj -> C:\Documents\Mathématique\Moteur Physique\repo\BIN\Debug\CollisionEngine.exe

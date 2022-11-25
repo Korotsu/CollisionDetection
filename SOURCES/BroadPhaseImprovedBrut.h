@@ -16,12 +16,12 @@ public:
 		for (size_t i = 0; i < poly_count; ++i) // old brute test version
 		{
 			CPolygonPtr APoly = gVars->pWorld->GetPolygon(i);
-			CAABB* A = APoly.get()->GetAABB();
+			CAABB A = APoly.get()->aabb;
 			for (size_t j = i + 1; j < poly_count; ++j)
 			{
 				CPolygonPtr BPoly = gVars->pWorld->GetPolygon(j);
-				CAABB* B = BPoly.get()->GetAABB();
-				if (A->DoesOverlap(*B))
+				CAABB B = BPoly.get()->aabb;
+				if (A.DoesOverlap(B))
 					pairsToCheck.push_back(SPolygonPair(APoly, BPoly));
 			}
 		}
