@@ -1,23 +1,25 @@
-d:\collisionengine\collisionengine\collisionengine\debug\vc120.pdb
-d:\collisionengine\collisionengine\collisionengine\debug\vc120.idb
-d:\collisionengine\collisionengine\collisionengine\debug\inertiatensor.obj
-d:\collisionengine\collisionengine\collisionengine\debug\main.obj
-d:\collisionengine\collisionengine\collisionengine\debug\globalevariables.obj
-d:\collisionengine\collisionengine\collisionengine\debug\maths.obj
-d:\collisionengine\collisionengine\collisionengine\debug\physicengine.obj
-d:\collisionengine\collisionengine\collisionengine\debug\polygon.obj
-d:\collisionengine\collisionengine\collisionengine\debug\renderer.obj
-d:\collisionengine\collisionengine\collisionengine\debug\scenemanager.obj
-d:\collisionengine\collisionengine\collisionengine\debug\sdlrenderwindow.obj
-d:\collisionengine\collisionengine\collisionengine\debug\timer.obj
-d:\collisionengine\collisionengine\collisionengine\debug\stdafx.obj
-d:\collisionengine\collisionengine\collisionengine\debug\world.obj
-d:\collisionengine\collisionengine\debug\collisionengine.ilk
-d:\collisionengine\collisionengine\debug\collisionengine.exe
-d:\collisionengine\collisionengine\debug\collisionengine.pdb
-d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\cl.command.1.tlog
-d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\cl.read.1.tlog
-d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\cl.write.1.tlog
-d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\link.command.1.tlog
-d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\link.read.1.tlog
-d:\collisionengine\collisionengine\collisionengine\debug\collisionengine.tlog\link.write.1.tlog
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\vc142.pdb
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\vc142.idb
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\world.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\stdafx.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\timer.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\sdlrenderwindow.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\scenemanager.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\renderer.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\polygon.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\physicengine.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\maths.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\globalevariables.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\main.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\globject.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\aabb.obj
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\collisionengine.ilk
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\bin\debug\collisionengine.exe
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\bin\debug\collisionengine.pdb
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\\bin\debug\collisionengine.pdb
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\collisionengine.tlog\cl.read.1.tlog
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\collisionengine.tlog\cl.write.1.tlog
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\collisionengine.tlog\cl.command.1.tlog
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\collisionengine.tlog\link.read.1.tlog
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\collisionengine.tlog\link.write.1.tlog
+e:\documents\etudes\isart_digital\mgp1\moteur physique\repo\sources\debug\collisionengine.tlog\link.command.1.tlog

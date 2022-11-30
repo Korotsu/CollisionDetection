@@ -10,7 +10,7 @@ struct SGlobalVariables
 	class CPhysicEngine* pPhysicEngine;
 
 	bool					bDebug;
-	bool					bAABB;
+	bool					bDebugElem;
 };
 
 extern SGlobalVariables* gVars;

@@ -18,7 +18,7 @@ void InitApplication(int width, int height, float worldHeight)
 	gVars->pPhysicEngine = new CPhysicEngine();
 
 	gVars->bDebug = false;
-	gVars->bAABB = false;
+	gVars->bDebugElem = false;
 }
 
 void RunApplication()

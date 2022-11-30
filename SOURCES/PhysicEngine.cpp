@@ -66,6 +66,10 @@ void	CPhysicEngine::CollisionBroadPhase()
 
 void	CPhysicEngine::CollisionNarrowPhase()
 {
+	for each (CPolygonPtr ptr in gVars->pWorld->GetPolygons())
+	{
+		ptr->isOverlaping = false;
+	}
 	m_collidingPairs.clear();
 	for (const SPolygonPair& pair : m_pairsToCheck)
 	{
@@ -75,6 +79,8 @@ void	CPhysicEngine::CollisionNarrowPhase()
 		if (pair.polyA->CheckCollision(*(pair.polyB), collision.point, collision.normal, collision.distance))
 		{
 			m_collidingPairs.push_back(collision);
+			pair.polyA->isOverlaping = true;
+			pair.polyB->isOverlaping = true;
 		}
 	}
 }

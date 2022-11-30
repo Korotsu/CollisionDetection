@@ -114,7 +114,7 @@ void CRenderer::Update()
 
 	if (gVars->pRenderWindow->JustPressedKey(Key::F8))
 	{
-		gVars->bAABB = !gVars->bAABB;
+		gVars->bDebugElem = !gVars->bDebugElem;
 	}
 
 	gVars->pSceneManager->CheckSceneUpdate();

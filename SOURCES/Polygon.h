@@ -41,13 +41,6 @@ public:
 	void				Build();
 	void				Draw();
 	size_t				GetIndex() const;
-
-	/*CAABB* GetAABB() {
-		if (m_aabb == nullptr)
-			m_aabb = new CAABB(points, position, rotation);
-		return m_aabb;
-	};*/
-
 	Vec2				TransformPoint(const Vec2& point) const;
 	Vec2				InverseTransformPoint(const Vec2& point) const;
 
@@ -59,7 +52,42 @@ public:
 	// Physics
 	float				density;
 	Vec2				speed;
-	CAABB*				aabb;
+	CAABB* aabb;
+	bool isOverlaping = false;
+
+	inline const Vec2 Support(const Vec2& dir) const
+	{
+		Vec2 support;
+		float maxProjection = -FLT_MAX;
+		for (Vec2 vertex : points)
+		{
+			vertex = rotation * vertex + position;
+			float projection = vertex | dir;
+			if (projection > maxProjection)
+			{
+				maxProjection = projection;
+				support = vertex;
+			}
+		}
+		return support;
+	}
+
+	inline const std::vector<Vec2> MinkovskiDiff(const CPolygon& poly, std::vector<Vec2>& outABase, std::vector<Vec2>& outBBase) const
+	{
+		Vec2 dir = Vec2(0, 0);
+		std::vector<Vec2> result;
+		for (float angle = 0; angle < 360; angle += 0.1)
+		{
+			dir.x = cos(angle);
+			dir.y = sin(angle);
+			Vec2 A = Support(dir * -1);
+			Vec2 B = poly.Support(dir);
+			outABase.push_back(A);
+			outBBase.push_back(B);
+			result.push_back(B - A);
+		}
+		return result;
+	}
 
 private:
 	void				BuildLines();

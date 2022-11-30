@@ -1,1 +1,27 @@
-﻿  CollisionEngine.vcxproj -> C:\Documents\Mathématique\Moteur Physique\repo\BIN\Debug\CollisionEngine.exe
+﻿cl : ligne de commande warning D9002: option '/NODEFAULTLIB:libcmt.lib' inconnue ignorée
+cl : ligne de commande warning D9002: option '/NODEFAULTLIB:libcmtd.lib' inconnue ignorée
+cl : ligne de commande warning D9002: option '/NODEFAULTLIB:msvcrtd.lib' inconnue ignorée
+  PhysicEngine.cpp
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Polygon.h(79,1): warning C4305: '+=' : troncation de 'double' à 'float'
+  Polygon.cpp
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Polygon.h(79,1): warning C4305: '+=' : troncation de 'double' à 'float'
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Polygon.h(81,15): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Polygon.h(82,15): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+  Renderer.cpp
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Polygon.h(79,1): warning C4305: '+=' : troncation de 'double' à 'float'
+  SceneManager.cpp
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Polygon.h(79,1): warning C4305: '+=' : troncation de 'double' à 'float'
+  World.cpp
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Polygon.h(79,1): warning C4305: '+=' : troncation de 'double' à 'float'
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Polygon.h(81,15): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Polygon.h(82,15): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\World.cpp(51,62): warning C4244: 'argument' : conversion de 'const size_t' en 'float', perte possible de données
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\World.cpp(51,44): warning C4244: 'argument' : conversion de 'const size_t' en 'float', perte possible de données
+  main.cpp
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Polygon.h(79,1): warning C4305: '+=' : troncation de 'double' à 'float'
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Behaviors\DisplayCollision.h(40,22): warning C4018: '<' : incompatibilité signed/unsigned
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Behaviors\DisplayCollision.h(27,9): warning C4101: 'dist' : variable locale non référencée
+  Génération de code en cours...
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\AABB.h(27): warning C4172: retourne l'adresse d'une variable locale ou  temporaire
+E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\AABB.h(32): warning C4172: retourne l'adresse d'une variable locale ou  temporaire
+  CollisionEngine.vcxproj -> E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\BIN\Debug\CollisionEngine.exe

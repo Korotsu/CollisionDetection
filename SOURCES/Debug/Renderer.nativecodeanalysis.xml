@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\</FILEPATH>
+      <FILENAME>Renderer.cpp</FILENAME>
+      <LINE>18</LINE>
+      <COLUMN>11</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>La variable 'CRenderer::m_frameTimer' n'est pas initialisée. Initialisez toujours une variable membre (type.6).</DESCRIPTION>
+    <FUNCTION>CRenderer::{ctor}</FUNCTION>
+    <DECORATED>??0CRenderer@@QAE@M@Z</DECORATED>
+    <FUNCLINE>18</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CRenderer::m_frameTimer</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\</FILEPATH>
+      <FILENAME>Renderer.cpp</FILENAME>
+      <LINE>18</LINE>
+      <COLUMN>11</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>La variable 'CRenderer::m_font' n'est pas initialisée. Initialisez toujours une variable membre (type.6).</DESCRIPTION>
+    <FUNCTION>CRenderer::{ctor}</FUNCTION>
+    <DECORATED>??0CRenderer@@QAE@M@Z</DECORATED>
+    <FUNCLINE>18</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CRenderer::m_font</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\</FILEPATH>
+      <FILENAME>Renderer.cpp</FILENAME>
+      <LINE>158</LINE>
+      <COLUMN>31</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Dépassement arithmétique : utilisation de l'opérateur '*' sur une valeur de 4 octets, puis cast du résultat vers une valeur de 8 octets. Castez la valeur vers le type plus large avant d'appeler l'opérateur '*' pour évider un dépassement (io.2).</DESCRIPTION>
+    <FUNCTION>CRenderer::SetProjectionMatrix</FUNCTION>
+    <DECORATED>?SetProjectionMatrix@CRenderer@@AAEXXZ</DECORATED>
+    <FUNCLINE>150</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\</FILEPATH>
+      <FILENAME>Renderer.cpp</FILENAME>
+      <LINE>158</LINE>
+      <COLUMN>24</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Dépassement arithmétique : utilisation de l'opérateur '*' sur une valeur de 4 octets, puis cast du résultat vers une valeur de 8 octets. Castez la valeur vers le type plus large avant d'appeler l'opérateur '*' pour évider un dépassement (io.2).</DESCRIPTION>
+    <FUNCTION>CRenderer::SetProjectionMatrix</FUNCTION>
+    <DECORATED>?SetProjectionMatrix@CRenderer@@AAEXXZ</DECORATED>
+    <FUNCLINE>150</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\</FILEPATH>
+      <FILENAME>Renderer.cpp</FILENAME>
+      <LINE>158</LINE>
+      <COLUMN>61</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Dépassement arithmétique : utilisation de l'opérateur '*' sur une valeur de 4 octets, puis cast du résultat vers une valeur de 8 octets. Castez la valeur vers le type plus large avant d'appeler l'opérateur '*' pour évider un dépassement (io.2).</DESCRIPTION>
+    <FUNCTION>CRenderer::SetProjectionMatrix</FUNCTION>
+    <DECORATED>?SetProjectionMatrix@CRenderer@@AAEXXZ</DECORATED>
+    <FUNCLINE>150</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\</FILEPATH>
+      <FILENAME>Renderer.cpp</FILENAME>
+      <LINE>158</LINE>
+      <COLUMN>54</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Dépassement arithmétique : utilisation de l'opérateur '*' sur une valeur de 4 octets, puis cast du résultat vers une valeur de 8 octets. Castez la valeur vers le type plus large avant d'appeler l'opérateur '*' pour évider un dépassement (io.2).</DESCRIPTION>
+    <FUNCTION>CRenderer::SetProjectionMatrix</FUNCTION>
+    <DECORATED>?SetProjectionMatrix@CRenderer@@AAEXXZ</DECORATED>
+    <FUNCLINE>150</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\</FILEPATH>
+      <FILENAME>Renderer.cpp</FILENAME>
+      <LINE>158</LINE>
+      <COLUMN>85</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Dépassement arithmétique : utilisation de l'opérateur '*' sur une valeur de 4 octets, puis cast du résultat vers une valeur de 8 octets. Castez la valeur vers le type plus large avant d'appeler l'opérateur '*' pour évider un dépassement (io.2).</DESCRIPTION>
+    <FUNCTION>CRenderer::SetProjectionMatrix</FUNCTION>
+    <DECORATED>?SetProjectionMatrix@CRenderer@@AAEXXZ</DECORATED>
+    <FUNCLINE>150</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\</FILEPATH>
+      <FILENAME>Renderer.cpp</FILENAME>
+      <LINE>158</LINE>
+      <COLUMN>107</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Dépassement arithmétique : utilisation de l'opérateur '*' sur une valeur de 4 octets, puis cast du résultat vers une valeur de 8 octets. Castez la valeur vers le type plus large avant d'appeler l'opérateur '*' pour évider un dépassement (io.2).</DESCRIPTION>
+    <FUNCTION>CRenderer::SetProjectionMatrix</FUNCTION>
+    <DECORATED>?SetProjectionMatrix@CRenderer@@AAEXXZ</DECORATED>
+    <FUNCLINE>150</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>
