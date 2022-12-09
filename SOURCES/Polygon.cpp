@@ -5,7 +5,7 @@
 #include "PhysicEngine.h"
 #include "GlobalVariables.h"
 
-#define	MAXITERATION 100
+#define	MAXITERATION 10000
 
 CPolygon::CPolygon(size_t index)
 	: CGLObject(), m_index(index), density(0.1f), aabb(new CAABB(points, position, rotation))
@@ -82,33 +82,50 @@ bool	CPolygon::IsPointInside(const Vec2& point) const
 	return maxDist <= 0.0f;
 }
 
-bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist) const
+bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const
 {
-	std::vector<Vec2> simplexPoints;
 	Vec2 dir = Vec2(1, 0);
 	simplexPoints.push_back(poly.Support(dir) - Support(dir * -1));
+	outA.push_back(Support(dir * -1) * -1);
+	outB.push_back(poly.Support(dir));
 	dir = (simplexPoints.back() * -1).Normalized();
 	simplexPoints.push_back(poly.Support(dir) - Support(dir * -1));
+	outA.push_back(Support(dir * -1) * -1);
+	outB.push_back(poly.Support(dir));
 	size_t size = 0;
 	Vec2 A = Vec2(0, 0);
 	Vec2 B = Vec2(0, 0);
 	Vec2 AB = Vec2(0, 0);
+	Vec2 dir1 = Vec2(0, 0);
+	Vec2 dir2 = Vec2(0, 0);
 	float angle = 0.f;
 	while (size < MAXITERATION)
 	{
 		size = simplexPoints.size();
-		// Get the orthogonal direction toward origin.
-		A = simplexPoints[size - 2];
-		B = simplexPoints[size - 1];
-		AB = B - A;
-		if (AB.GetLength() * A.GetLength() > 0)
-			angle = 90 - (1 - (AB | (A * -1)) / (AB.GetLength() * A.GetLength())) * 90;
+		if (size > 2)
+		{
+			if (A.GetSqrLength() > B.GetSqrLength())
+			{
+				if (A.GetSqrLength() > simplexPoints.back().GetSqrLength())
+					A = simplexPoints.back();
+			}
+			else if (B.GetSqrLength() > simplexPoints.back().GetSqrLength())
+				B = simplexPoints.back();
+		}
 		else
-			angle = 0;
-		dir.x = -1 * (A.x * cos(angle) - A.y * sin(angle));
-		dir.y = -1 * (A.x * sin(angle) + A.y * cos(angle));
-		dir.Normalize();
+		{
+			// Get the orthogonal direction toward origin.
+			A = simplexPoints[size - 2];
+			B = simplexPoints[size - 1];	
+		}
+		AB = B - A;
+		dir1 = Vec2(-1 * AB.y, AB.x).Normalized();
+		dir2 = Vec2(AB.y, -1 * AB.x).Normalized();
+		angle = Clamp(B.Normalized() | dir1.Normalized(), -1.0f, 1.0f);
+		dir = angle <= 0 ? dir1 : dir2;
 		simplexPoints.push_back(poly.Support(dir) - Support(dir * -1));
+		outA.push_back(Support(dir * -1) * -1);
+		outB.push_back(poly.Support(dir));
 		if (Triangle::IsPointInside(Vec2(0, 0), A, B, simplexPoints.back()))
 			return true;
 

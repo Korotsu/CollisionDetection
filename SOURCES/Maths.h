@@ -278,7 +278,7 @@ struct Triangle
 		const float t2Area = Triangle::Area(point, b, c);
 		const float t3Area = Triangle::Area(point, c, a);
 
-		return (baseArea + 1 >= t1Area + t2Area + t3Area) ? true : false;
+		return (baseArea + 0.1 >= t1Area + t2Area + t3Area) ? true : false;
 	}
 };
 
