@@ -19,7 +19,7 @@ void	CPhysicEngine::Reset()
 
 	m_active = true;
 
-	// m_broadPhase = new CBroadPhaseBrut(); // Brut Broad phase.
+	//m_broadPhase = new CBroadPhaseBrut(); // Brut Broad phase.
 	m_broadPhase = new CBroadPhaseSAP(); // Sweep and Prune Broad phase.
 }
 

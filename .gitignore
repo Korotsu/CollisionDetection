@@ -1,7 +1,10 @@
 .vs/
+SOURCES/Debug/
+SOURCES/Release/
 CollisionEngine/Debug/
 CollisionEngine/Release/
 Debug/font.ttf
 Release/font.ttf
 Target/font.ttf
 CollisionEngine.sdf
+

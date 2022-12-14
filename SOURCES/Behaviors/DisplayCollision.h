@@ -32,6 +32,7 @@ private:
 
 			//gVars->pRenderer->DrawLine(point, point + normal * dist, 0.0f, 1.0f, 0.0f);
 		}*/
+		polyA->CheckCollision(*polyB, point, normal, dist);
 		if (gVars->bDebugElem)
 		{
 			std::vector<Vec2> outA;
@@ -40,7 +41,7 @@ private:
 			std::vector<Vec2> outD;
 			std::vector<Vec2> result = polyA->MinkovskiDiff(*polyB, outA, outB);
 			std::vector<Vec2> outResult;
-			polyA->CheckCollision(*polyB, point, normal, dist, outResult, outC, outD);
+			polyA->CheckCollisionWithDebug(*polyB, point, normal, dist, outResult, outC, outD);
 
 			for (size_t i = outResult.size() - 3; i < outResult.size() - 2; i++)
 			{

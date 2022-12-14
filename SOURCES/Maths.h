@@ -9,6 +9,7 @@
 
 #define RAD2DEG(x) ((x)*(180.0f/(float)M_PI))
 #define DEG2RAD(x) ((x)*((float)M_PI/180.0f))
+constexpr float EPSILON = 0.01f;
 
 template<typename T>
 inline T Select(bool condition, T a, T b)
@@ -100,6 +101,16 @@ struct Vec2
 	inline float operator^(const Vec2& rhs) const
 	{
 		return x * rhs.y - y * rhs.x;
+	}
+
+	inline bool operator==(const Vec2& other) const
+	{
+		return (x == other.x && y == other.y);
+	}
+
+	inline bool operator!=(const Vec2& other) const
+	{
+		return (x != other.x || y != other.y);
 	}
 
 	inline float GetLength() const
@@ -278,7 +289,7 @@ struct Triangle
 		const float t2Area = Triangle::Area(point, b, c);
 		const float t3Area = Triangle::Area(point, c, a);
 
-		return (baseArea + 0.1 >= t1Area + t2Area + t3Area) ? true : false;
+		return (baseArea + EPSILON >= t1Area + t2Area + t3Area) ? true : false;
 	}
 };
 

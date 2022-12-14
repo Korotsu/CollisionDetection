@@ -82,56 +82,94 @@ bool	CPolygon::IsPointInside(const Vec2& point) const
 	return maxDist <= 0.0f;
 }
 
-bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const
+bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist) const
 {
 	Vec2 dir = Vec2(1, 0);
-	simplexPoints.push_back(poly.Support(dir) - Support(dir * -1));
-	outA.push_back(Support(dir * -1) * -1);
-	outB.push_back(poly.Support(dir));
-	dir = (simplexPoints.back() * -1).Normalized();
-	simplexPoints.push_back(poly.Support(dir) - Support(dir * -1));
-	outA.push_back(Support(dir * -1) * -1);
-	outB.push_back(poly.Support(dir));
-	size_t size = 0;
-	Vec2 A = Vec2(0, 0);
-	Vec2 B = Vec2(0, 0);
+	Vec2 A = poly.Support(dir) - Support(dir * -1);
+	dir = (A * -1).Normalized();
+	Vec2 B = poly.Support(dir) - Support(dir * -1);
 	Vec2 AB = Vec2(0, 0);
-	Vec2 dir1 = Vec2(0, 0);
-	Vec2 dir2 = Vec2(0, 0);
+	Vec2 C = Vec2(0, 0);
+	Vec2 oldC = Vec2(0, 0);
 	float angle = 0.f;
-	while (size < MAXITERATION)
+	for (size_t i = 0; i < MAXITERATION; i++)
 	{
-		size = simplexPoints.size();
-		if (size > 2)
+		if (C.GetSqrLength() != 0)
 		{
+			if (C.GetSqrLength() > A.GetSqrLength() && C.GetSqrLength() > B.GetSqrLength())
+				return false;
 			if (A.GetSqrLength() > B.GetSqrLength())
-			{
-				if (A.GetSqrLength() > simplexPoints.back().GetSqrLength())
-					A = simplexPoints.back();
-			}
-			else if (B.GetSqrLength() > simplexPoints.back().GetSqrLength())
-				B = simplexPoints.back();
+				A = C;
+			else
+				B = C;
 		}
-		else
-		{
-			// Get the orthogonal direction toward origin.
-			A = simplexPoints[size - 2];
-			B = simplexPoints[size - 1];	
-		}
+		if (A == B)
+			return false;
 		AB = B - A;
-		dir1 = Vec2(-1 * AB.y, AB.x).Normalized();
-		dir2 = Vec2(AB.y, -1 * AB.x).Normalized();
-		angle = Clamp(B.Normalized() | dir1.Normalized(), -1.0f, 1.0f);
-		dir = angle <= 0 ? dir1 : dir2;
-		simplexPoints.push_back(poly.Support(dir) - Support(dir * -1));
-		outA.push_back(Support(dir * -1) * -1);
-		outB.push_back(poly.Support(dir));
-		if (Triangle::IsPointInside(Vec2(0, 0), A, B, simplexPoints.back()))
+		dir = Vec2(-1 * AB.y, AB.x).Normalized();
+		angle = Clamp(B.Normalized() | dir.Normalized(), -1.0f, 1.0f);
+		dir = angle <= 0 ? dir : Vec2(AB.y, -1 * AB.x).Normalized();
+		oldC = C;
+		C = poly.Support(dir) - Support(dir * -1);
+		if (Triangle::IsPointInside(Vec2(0, 0), A, B, C))
 			return true;
 
-		else if (size >= 4 && Triangle::IsPointInside(simplexPoints.back(), A, B, simplexPoints[size - 4]))
+		else if (C.GetSqrLength() != 0 && Triangle::IsPointInside(C, A, B, oldC))
 			return false;
 
+	}
+	return false;
+}
+
+bool CPolygon::CheckCollisionWithDebug(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const
+{
+	Vec2 dir = Vec2(1, 0);
+	Vec2 outAV = Support(dir * -1) * -1;
+	Vec2 outBV = poly.Support(dir);
+	Vec2 A = outBV + outAV;
+	simplexPoints.push_back(A);
+	outA.push_back(outAV);
+	outB.push_back(outBV);
+	dir = (A * -1).Normalized();
+	outAV = Support(dir * -1) * -1;
+	outBV = poly.Support(dir);
+	Vec2 B = outBV + outAV;
+	simplexPoints.push_back(B);
+	outA.push_back(outAV);
+	outB.push_back(outBV);
+	Vec2 AB = Vec2(0, 0);
+	Vec2 C = Vec2(0, 0);
+	Vec2 oldC = Vec2(0, 0);
+	float angle = 0.f;
+	for (size_t i = 0; i < MAXITERATION; i++)
+	{
+		if (C.GetSqrLength() != 0)
+		{
+			if (C.GetSqrLength() > A.GetSqrLength() && C.GetSqrLength() > B.GetSqrLength())
+				return false;
+			if (A.GetSqrLength() > B.GetSqrLength())
+				A = C;
+			else
+				B = C;
+		}
+		if (A == B)
+			return false;
+		AB = B - A;
+		dir = Vec2(-1 * AB.y, AB.x).Normalized();
+		angle = Clamp(B.Normalized() | dir.Normalized(), -1.0f, 1.0f);
+		dir = angle <= 0 ? dir : Vec2(AB.y, -1 * AB.x).Normalized();
+		oldC = C;
+		outAV = Support(dir * -1) * -1;
+		outBV = poly.Support(dir);
+		C = outBV + outAV;
+		simplexPoints.push_back(C);
+		outA.push_back(outAV);
+		outB.push_back(outBV);
+		if (Triangle::IsPointInside(Vec2(0, 0), A, B, C))
+			return true;
+
+		else if (C.GetSqrLength() != 0 && Triangle::IsPointInside(C, A, B, oldC))
+			return false;
 	}
 	return false;
 }

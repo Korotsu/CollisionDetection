@@ -47,11 +47,11 @@ public:
 			functor(collision);
 		}
 	}
+	void						CollisionBroadPhase();
 
 private:
 	friend class CPenetrationVelocitySolver;
 
-	void						CollisionBroadPhase();
 	void						CollisionNarrowPhase();
 
 	bool						m_active = true;
