@@ -92,16 +92,26 @@ bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNor
 	Vec2 C = Vec2(0, 0);
 	Vec2 oldC = Vec2(0, 0);
 	float angle = 0.f;
+	float ACangle = 0.f;
+	float BCangle = 0.f;
 	for (size_t i = 0; i < MAXITERATION; i++)
 	{
 		if (C.GetSqrLength() != 0)
 		{
 			if (C.GetSqrLength() > A.GetSqrLength() && C.GetSqrLength() > B.GetSqrLength())
 				return false;
-			if (A.GetSqrLength() > B.GetSqrLength())
+			ACangle = Clamp(A.Normalized() | C.Normalized(), -1.0f, 1.0f);
+			BCangle = Clamp(B.Normalized() | C.Normalized(), -1.0f, 1.0f);
+			if (ACangle > BCangle)
+			{
+				oldC = A;
 				A = C;
+			}
 			else
+			{
+				oldC = B;
 				B = C;
+			}
 		}
 		if (A == B)
 			return false;
@@ -109,7 +119,6 @@ bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNor
 		dir = Vec2(-1 * AB.y, AB.x).Normalized();
 		angle = Clamp(B.Normalized() | dir.Normalized(), -1.0f, 1.0f);
 		dir = angle <= 0 ? dir : Vec2(AB.y, -1 * AB.x).Normalized();
-		oldC = C;
 		C = poly.Support(dir) - Support(dir * -1);
 		if (Triangle::IsPointInside(Vec2(0, 0), A, B, C))
 			return true;
@@ -141,16 +150,26 @@ bool CPolygon::CheckCollisionWithDebug(const CPolygon& poly, Vec2& colPoint, Vec
 	Vec2 C = Vec2(0, 0);
 	Vec2 oldC = Vec2(0, 0);
 	float angle = 0.f;
+	float ACangle = 0.f;
+	float BCangle = 0.f;
 	for (size_t i = 0; i < MAXITERATION; i++)
 	{
 		if (C.GetSqrLength() != 0)
 		{
 			if (C.GetSqrLength() > A.GetSqrLength() && C.GetSqrLength() > B.GetSqrLength())
 				return false;
-			if (A.GetSqrLength() > B.GetSqrLength())
+			ACangle = Clamp(A.Normalized() | C.Normalized(), -1.0f, 1.0f);
+			BCangle = Clamp(B.Normalized() | C.Normalized(), -1.0f, 1.0f);
+			if (ACangle > BCangle)
+			{
+				oldC = A;
 				A = C;
+			}
 			else
+			{
+				oldC = B;
 				B = C;
+			}
 		}
 		if (A == B)
 			return false;
@@ -158,7 +177,6 @@ bool CPolygon::CheckCollisionWithDebug(const CPolygon& poly, Vec2& colPoint, Vec
 		dir = Vec2(-1 * AB.y, AB.x).Normalized();
 		angle = Clamp(B.Normalized() | dir.Normalized(), -1.0f, 1.0f);
 		dir = angle <= 0 ? dir : Vec2(AB.y, -1 * AB.x).Normalized();
-		oldC = C;
 		outAV = Support(dir * -1) * -1;
 		outBV = poly.Support(dir);
 		C = outBV + outAV;

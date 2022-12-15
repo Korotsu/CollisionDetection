@@ -1,8 +1,0 @@
-﻿cl : ligne de commande warning D9002: option '/NODEFAULTLIB:libcmt.lib' inconnue ignorée
-cl : ligne de commande warning D9002: option '/NODEFAULTLIB:libcmtd.lib' inconnue ignorée
-cl : ligne de commande warning D9002: option '/NODEFAULTLIB:msvcrtd.lib' inconnue ignorée
-  PhysicEngine.cpp
-E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\Polygon.h(80,1): warning C4305: '+=' : troncation de 'double' à 'float'
-E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\AABB.h(32): warning C4172: retourne l'adresse d'une variable locale ou  temporaire
-E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\SOURCES\AABB.h(27): warning C4172: retourne l'adresse d'une variable locale ou  temporaire
-  CollisionEngine.vcxproj -> E:\Documents\Etudes\Isart_Digital\MGP1\Moteur Physique\repo\BIN\Debug\CollisionEngine.exe

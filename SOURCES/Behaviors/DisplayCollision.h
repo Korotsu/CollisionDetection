@@ -32,7 +32,7 @@ private:
 
 			//gVars->pRenderer->DrawLine(point, point + normal * dist, 0.0f, 1.0f, 0.0f);
 		}*/
-		polyA->CheckCollision(*polyB, point, normal, dist);
+		//polyA->CheckCollision(*polyB, point, normal, dist);
 		if (gVars->bDebugElem)
 		{
 			std::vector<Vec2> outA;
