@@ -5,7 +5,7 @@
 #include "PhysicEngine.h"
 #include "GlobalVariables.h"
 
-#define	MAXITERATION 10000
+#define	MAXITERATION 1000
 
 CPolygon::CPolygon(size_t index)
 	: CGLObject(), m_index(index), density(0.1f), aabb(new CAABB(points, position, rotation))
@@ -84,6 +84,28 @@ bool	CPolygon::IsPointInside(const Vec2& point) const
 
 bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist) const
 {
+	std::vector<Vec2> outSimplex = std::vector<Vec2>();
+	if (GJK(poly, outSimplex))
+	{
+		EPA(outSimplex, poly, colPoint, colNormal, colDist);
+		return true;
+	}
+	return false;
+}
+
+bool CPolygon::CheckCollisionWithDebug(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const
+{
+	std::vector<Vec2> outSimplex = std::vector<Vec2>();
+	if (GJKWithDebug(poly, outSimplex, simplexPoints, outA, outB))
+	{
+		EPA(outSimplex, poly, colPoint, colNormal, colDist);
+		return true;
+	}
+	return false;
+}
+
+bool CPolygon::GJK(const CPolygon& poly, std::vector<Vec2>& outSimplex) const
+{
 	Vec2 dir = Vec2(1, 0);
 	Vec2 A = poly.Support(dir) - Support(dir * -1);
 	dir = (A * -1).Normalized();
@@ -121,7 +143,12 @@ bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNor
 		dir = angle <= 0 ? dir : Vec2(AB.y, -1 * AB.x).Normalized();
 		C = poly.Support(dir) - Support(dir * -1);
 		if (Triangle::IsPointInside(Vec2(0, 0), A, B, C))
+		{
+			outSimplex.push_back(A);
+			outSimplex.push_back(B);
+			outSimplex.push_back(C);
 			return true;
+		}
 
 		else if (C.GetSqrLength() != 0 && Triangle::IsPointInside(C, A, B, oldC))
 			return false;
@@ -130,7 +157,7 @@ bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNor
 	return false;
 }
 
-bool CPolygon::CheckCollisionWithDebug(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const
+bool CPolygon::GJKWithDebug(const CPolygon& poly, std::vector<Vec2>& outSimplex, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const
 {
 	Vec2 dir = Vec2(1, 0);
 	Vec2 outAV = Support(dir * -1) * -1;
@@ -176,7 +203,7 @@ bool CPolygon::CheckCollisionWithDebug(const CPolygon& poly, Vec2& colPoint, Vec
 		AB = B - A;
 		dir = Vec2(-1 * AB.y, AB.x).Normalized();
 		angle = Clamp(B.Normalized() | dir.Normalized(), -1.0f, 1.0f);
-		dir = angle <= 0 ? dir : Vec2(AB.y, -1 * AB.x).Normalized();
+		dir = angle <= 0 ? dir : dir * -1;
 		outAV = Support(dir * -1) * -1;
 		outBV = poly.Support(dir);
 		C = outBV + outAV;
@@ -184,13 +211,67 @@ bool CPolygon::CheckCollisionWithDebug(const CPolygon& poly, Vec2& colPoint, Vec
 		outA.push_back(outAV);
 		outB.push_back(outBV);
 		if (Triangle::IsPointInside(Vec2(0, 0), A, B, C))
+		{
+			outSimplex.push_back(A);
+			outSimplex.push_back(B);
+			outSimplex.push_back(C);
 			return true;
+		}
 
 		else if (C.GetSqrLength() != 0 && Triangle::IsPointInside(C, A, B, oldC))
 			return false;
 	}
 	return false;
 }
+
+void CPolygon::EPA(std::vector<Vec2>& polytope, const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist) const
+{
+	Vec2 A = Vec2(0, 0);
+	Vec2 B = Vec2(0, 0);
+	Vec2 C = Vec2(0, 0);
+	Vec2 AB = Vec2(0, 0);
+	Vec2 normal = Vec2(0, 0);
+	Vec2 minNormal = Vec2(0, 0);
+	float distance = 0.0f;
+	float minDistance = FLT_MAX;
+	float newDistance = 0.0f;
+	size_t minIndex = 0;
+	for(size_t limit = 0; limit < MAXITERATION; limit++)
+	{
+		minDistance = FLT_MAX;
+		for (size_t i = 0; i < polytope.size(); i++)
+		{
+			A = polytope[i];
+			B = ((i+1) < polytope.size()) ? polytope[i+1] : polytope[0];
+			AB = B - A;
+			normal = Vec2(AB.y, -1 * AB.x).Normalized();
+			distance = normal | A;
+
+			if (distance < 0)
+			{
+				distance *= -1;
+				normal *= -1;
+			}
+			if (distance < minDistance)
+			{
+				minDistance = distance;
+				minIndex = i + 1;
+				minNormal = normal;
+			}
+		}
+		C = poly.Support(minNormal) - Support(minNormal * -1);
+		newDistance = minNormal | C;
+		if (fabs(newDistance) - minDistance <= EPSILON)
+		{
+			colDist = minDistance + EPSILON;
+			colNormal = minNormal * -1;
+			colPoint = poly.Support(minNormal);
+			return;
+		}
+		polytope.insert(polytope.begin() + minIndex, C);
+	}
+}
+
 
 void CPolygon::BuildLines()
 {

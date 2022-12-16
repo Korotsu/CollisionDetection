@@ -49,6 +49,9 @@ public:
 
 	bool				CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist) const;
 	bool				CheckCollisionWithDebug(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const;
+	bool				GJK(const CPolygon& poly, std::vector<Vec2>& outSimplex) const;
+	bool				GJKWithDebug(const CPolygon& poly, std::vector<Vec2>& outSimplex, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const;
+	void				EPA(std::vector<Vec2>& polytope, const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist) const;
 
 	// Physics
 	float				density;
