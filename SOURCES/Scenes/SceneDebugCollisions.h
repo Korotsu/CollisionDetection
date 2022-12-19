@@ -12,14 +12,14 @@ private:
 	{
 		CBaseScene::Create();
 
-		//CPolygonPtr firstPoly = gVars->pWorld->AddTriangle(30.0f, 20.0f); 
-		CPolygonPtr firstPoly = gVars->pWorld->AddSquare(10.0f);
+		CPolygonPtr firstPoly = gVars->pWorld->AddTriangle(30.0f, 20.0f); 
+		//CPolygonPtr firstPoly = gVars->pWorld->AddSquare(10.0f);
 		firstPoly->density = 0.0f;
 		firstPoly->SetPosition(Vec2(-5.0f, -5.0f));
 		firstPoly->Build();
 
-		//CPolygonPtr secondPoly = gVars->pWorld->AddTriangle(25.0f, 20.0f);
-		CPolygonPtr secondPoly = gVars->pWorld->AddSymetricPolygon(5, 50);
+		CPolygonPtr secondPoly = gVars->pWorld->AddTriangle(25.0f, 20.0f);
+		//CPolygonPtr secondPoly = gVars->pWorld->AddSymetricPolygon(5, 50);
 		secondPoly->SetPosition(Vec2(5.0f, 5.0f));
 		secondPoly->density = 0.0f;
 

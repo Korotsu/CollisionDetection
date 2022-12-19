@@ -47,8 +47,7 @@ public:
 	// if point is outside then returned distance is negative (and doesn't make sense)
 	bool				IsPointInside(const Vec2& point) const;
 
-	bool				CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist) const;
-	bool				CheckCollisionWithDebug(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const;
+	bool				CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist, std::vector<Vec2>& outSimplex = std::vector<Vec2>()) const;
 	bool				GJK(const CPolygon& poly, std::vector<Vec2>& outSimplex) const;
 	bool				GJKWithDebug(const CPolygon& poly, std::vector<Vec2>& outSimplex, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const;
 	void				EPA(std::vector<Vec2>& polytope, const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist) const;
@@ -78,12 +77,12 @@ public:
 
 	inline const std::vector<Vec2> MinkovskiDiff(const CPolygon& poly, std::vector<Vec2>& outABase, std::vector<Vec2>& outBBase) const
 	{
-		Vec2 dir = Vec2(0, 0);
+		Vec2 dir = Vec2(0.0f, 0.0f);
 		std::vector<Vec2> result;
-		for (float angle = 0; angle < 360; angle += 0.1)
+		for (float angle = 0.0f; angle < 360.0f; angle += 0.1f)
 		{
-			dir.x = cos(angle);
-			dir.y = sin(angle);
+			dir.x = cosf(angle);
+			dir.y = sinf(angle);
 			Vec2 A = Support(dir * -1);
 			Vec2 B = poly.Support(dir);
 			outABase.push_back(A);

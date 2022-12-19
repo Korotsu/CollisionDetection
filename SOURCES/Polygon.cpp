@@ -49,8 +49,8 @@ void CPolygon::Draw()
 
 	glPopMatrix();
 
-	if (gVars->bDebugElem)
-		aabb->Draw();
+	//if (gVars->bDebugElem)
+		//aabb->Draw();
 }
 
 size_t	CPolygon::GetIndex() const
@@ -82,23 +82,11 @@ bool	CPolygon::IsPointInside(const Vec2& point) const
 	return maxDist <= 0.0f;
 }
 
-bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist) const
+bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist, std::vector<Vec2>& outSimplex) const
 {
-	std::vector<Vec2> outSimplex = std::vector<Vec2>();
 	if (GJK(poly, outSimplex))
 	{
-		EPA(outSimplex, poly, colPoint, colNormal, colDist);
-		return true;
-	}
-	return false;
-}
-
-bool CPolygon::CheckCollisionWithDebug(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const
-{
-	std::vector<Vec2> outSimplex = std::vector<Vec2>();
-	if (GJKWithDebug(poly, outSimplex, simplexPoints, outA, outB))
-	{
-		EPA(outSimplex, poly, colPoint, colNormal, colDist);
+		EPA(std::vector<Vec2>(outSimplex), poly, colPoint, colNormal, colDist);
 		return true;
 	}
 	return false;
@@ -106,42 +94,61 @@ bool CPolygon::CheckCollisionWithDebug(const CPolygon& poly, Vec2& colPoint, Vec
 
 bool CPolygon::GJK(const CPolygon& poly, std::vector<Vec2>& outSimplex) const
 {
-	Vec2 dir = Vec2(1, 0);
-	Vec2 A = poly.Support(dir) - Support(dir * -1);
-	dir = (A * -1).Normalized();
-	Vec2 B = poly.Support(dir) - Support(dir * -1);
-	Vec2 AB = Vec2(0, 0);
-	Vec2 C = Vec2(0, 0);
-	Vec2 oldC = Vec2(0, 0);
-	float angle = 0.f;
-	float ACangle = 0.f;
-	float BCangle = 0.f;
+	Vec2 dir = Vec2(1.0f, 0.0f);
+
+	Vec2 A				= poly.Support(dir) - Support(dir * -1.0f);
+	Vec2 ANormalized	= A.Normalized();
+
+	dir = ANormalized * -1.0f;
+
+	Vec2 B = poly.Support(dir) - Support(dir * -1.0f);
+	Vec2 BNormalized = B.Normalized();
+
+	Vec2 ABNormalized = Vec2(0.0f, 0.0f);
+
+	Vec2 C = Vec2(0.0f, 0.0f);
+	Vec2 CNormalized = C;
+	Vec2 oldC = C;
+
+	float angle = 0.0f;
+	float ACangle = 0.0f;
+	float BCangle = 0.0f;
+
 	for (size_t i = 0; i < MAXITERATION; i++)
 	{
 		if (C.GetSqrLength() != 0)
 		{
 			if (C.GetSqrLength() > A.GetSqrLength() && C.GetSqrLength() > B.GetSqrLength())
 				return false;
-			ACangle = Clamp(A.Normalized() | C.Normalized(), -1.0f, 1.0f);
-			BCangle = Clamp(B.Normalized() | C.Normalized(), -1.0f, 1.0f);
+
+			ACangle = Clamp(ANormalized | CNormalized, -1.0f, 1.0f);
+			BCangle = Clamp(BNormalized | CNormalized, -1.0f, 1.0f);
 			if (ACangle > BCangle)
 			{
 				oldC = A;
 				A = C;
+				ANormalized = CNormalized;
 			}
 			else
 			{
 				oldC = B;
 				B = C;
+				BNormalized = CNormalized;
 			}
 		}
+
 		if (A == B)
 			return false;
-		AB = B - A;
-		dir = Vec2(-1 * AB.y, AB.x).Normalized();
-		angle = Clamp(B.Normalized() | dir.Normalized(), -1.0f, 1.0f);
-		dir = angle <= 0 ? dir : Vec2(AB.y, -1 * AB.x).Normalized();
-		C = poly.Support(dir) - Support(dir * -1);
+
+		ABNormalized = BNormalized - ANormalized;
+		dir = Vec2(-1.0f * ABNormalized.y, ABNormalized.x);
+
+		angle = Clamp(BNormalized | dir, -1.0f, 1.0f);
+		dir = angle <= 0 ? dir : (dir * -1.0f);
+
+		C = poly.Support(dir) - Support(dir * -1.0f);
+		CNormalized = C.Normalized();
+
 		if (Triangle::IsPointInside(Vec2(0, 0), A, B, C))
 		{
 			outSimplex.push_back(A);
@@ -153,73 +160,6 @@ bool CPolygon::GJK(const CPolygon& poly, std::vector<Vec2>& outSimplex) const
 		else if (C.GetSqrLength() != 0 && Triangle::IsPointInside(C, A, B, oldC))
 			return false;
 
-	}
-	return false;
-}
-
-bool CPolygon::GJKWithDebug(const CPolygon& poly, std::vector<Vec2>& outSimplex, std::vector<Vec2>& simplexPoints, std::vector<Vec2>& outA, std::vector<Vec2>& outB) const
-{
-	Vec2 dir = Vec2(1, 0);
-	Vec2 outAV = Support(dir * -1) * -1;
-	Vec2 outBV = poly.Support(dir);
-	Vec2 A = outBV + outAV;
-	simplexPoints.push_back(A);
-	outA.push_back(outAV);
-	outB.push_back(outBV);
-	dir = (A * -1).Normalized();
-	outAV = Support(dir * -1) * -1;
-	outBV = poly.Support(dir);
-	Vec2 B = outBV + outAV;
-	simplexPoints.push_back(B);
-	outA.push_back(outAV);
-	outB.push_back(outBV);
-	Vec2 AB = Vec2(0, 0);
-	Vec2 C = Vec2(0, 0);
-	Vec2 oldC = Vec2(0, 0);
-	float angle = 0.f;
-	float ACangle = 0.f;
-	float BCangle = 0.f;
-	for (size_t i = 0; i < MAXITERATION; i++)
-	{
-		if (C.GetSqrLength() != 0)
-		{
-			if (C.GetSqrLength() > A.GetSqrLength() && C.GetSqrLength() > B.GetSqrLength())
-				return false;
-			ACangle = Clamp(A.Normalized() | C.Normalized(), -1.0f, 1.0f);
-			BCangle = Clamp(B.Normalized() | C.Normalized(), -1.0f, 1.0f);
-			if (ACangle > BCangle)
-			{
-				oldC = A;
-				A = C;
-			}
-			else
-			{
-				oldC = B;
-				B = C;
-			}
-		}
-		if (A == B)
-			return false;
-		AB = B - A;
-		dir = Vec2(-1 * AB.y, AB.x).Normalized();
-		angle = Clamp(B.Normalized() | dir.Normalized(), -1.0f, 1.0f);
-		dir = angle <= 0 ? dir : dir * -1;
-		outAV = Support(dir * -1) * -1;
-		outBV = poly.Support(dir);
-		C = outBV + outAV;
-		simplexPoints.push_back(C);
-		outA.push_back(outAV);
-		outB.push_back(outBV);
-		if (Triangle::IsPointInside(Vec2(0, 0), A, B, C))
-		{
-			outSimplex.push_back(A);
-			outSimplex.push_back(B);
-			outSimplex.push_back(C);
-			return true;
-		}
-
-		else if (C.GetSqrLength() != 0 && Triangle::IsPointInside(C, A, B, oldC))
-			return false;
 	}
 	return false;
 }
@@ -264,8 +204,32 @@ void CPolygon::EPA(std::vector<Vec2>& polytope, const CPolygon& poly, Vec2& colP
 		if (fabs(newDistance) - minDistance <= EPSILON)
 		{
 			colDist = minDistance + EPSILON;
-			colNormal = minNormal * -1;
-			colPoint = poly.Support(minNormal);
+			//colNormal = minNormal * -1;
+			Vec2 ABNormalized = (poly.position - position).Normalized();
+			Vec2 test1 = poly.Support(minNormal);
+			Vec2 ATest1 = test1 - position;
+
+			Vec2 test2 = Support(minNormal * -1);
+			Vec2 BTest2 = test2 - poly.position;
+
+			float dist1 = ABNormalized | ATest1;
+			float dist2 = (ABNormalized * -1.0f) | BTest2;
+
+			float angle1 = ABNormalized | ATest1.Normalized();
+			float angle2 = (ABNormalized * -1.0f) | BTest2.Normalized();
+
+			bool testResult = (angle1 >= angle2);
+			
+			if (testResult)
+			{
+				colPoint = test1;
+				colNormal = minNormal * -1;
+			}
+			else
+			{
+				colPoint = test2;
+				colNormal = minNormal;
+			}
 			return;
 		}
 		polytope.insert(polytope.begin() + minIndex, C);

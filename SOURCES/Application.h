@@ -19,6 +19,7 @@ void InitApplication(int width, int height, float worldHeight)
 
 	gVars->bDebug = false;
 	gVars->bDebugElem = false;
+	gVars->bSwapShape = false;
 }
 
 void RunApplication()

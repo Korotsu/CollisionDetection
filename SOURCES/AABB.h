@@ -22,12 +22,12 @@ public:
 	Mat2 rotation;
 	bool isOverlaping = false;
 
-	inline const float& GetMinX()
+	inline const float GetMinX()
 	{
 		return min.x + position.x;
 	}
 
-	inline const float& GetMaxX()
+	inline const float GetMaxX()
 	{
 		return max.x + position.x;
 	}

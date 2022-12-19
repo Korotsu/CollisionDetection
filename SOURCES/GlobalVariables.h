@@ -11,6 +11,7 @@ struct SGlobalVariables
 
 	bool					bDebug;
 	bool					bDebugElem;
+	bool					bSwapShape;
 };
 
 extern SGlobalVariables* gVars;

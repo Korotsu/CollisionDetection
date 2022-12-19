@@ -117,6 +117,11 @@ void CRenderer::Update()
 		gVars->bDebugElem = !gVars->bDebugElem;
 	}
 
+	if (gVars->pRenderWindow->JustPressedKey(Key::F9))
+	{
+		gVars->bSwapShape = true;
+	}
+
 	gVars->pSceneManager->CheckSceneUpdate();
 
 	PreRenderFrame();

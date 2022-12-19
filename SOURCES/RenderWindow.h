@@ -11,6 +11,7 @@ enum class Key : unsigned int
 	F4,
 	F5,
 	F8,
+	F9,
 
 	Count,
 };
