@@ -117,11 +117,26 @@ void CRenderer::Update()
 		gVars->bDebugElem = !gVars->bDebugElem;
 	}
 
-	if (gVars->pRenderWindow->JustPressedKey(Key::F9))
+	if (gVars->bDebugElem)
 	{
-		gVars->bSwapShape = true;
+		if (gVars->pRenderWindow->JustPressedKey(Key::NumPad0))
+		{
+			gVars->bToggleAABB = !gVars->bToggleAABB;
+		}
+		if (gVars->pRenderWindow->JustPressedKey(Key::NumPad1))
+		{
+			gVars->bToggleMinkoskiCreationDraw = !gVars->bToggleMinkoskiCreationDraw;
+		}
+		if (gVars->pRenderWindow->JustPressedKey(Key::NumPad2))
+		{
+			gVars->bToggleMinkoskiShapeDraw = !gVars->bToggleMinkoskiShapeDraw;
+		}
+		if (gVars->pRenderWindow->JustPressedKey(Key::NumPad3))
+		{
+			gVars->bToggleLastSimplexDraw = !gVars->bToggleLastSimplexDraw;
+		}
 	}
-
+	
 	gVars->pSceneManager->CheckSceneUpdate();
 
 	PreRenderFrame();

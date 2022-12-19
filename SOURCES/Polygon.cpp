@@ -38,10 +38,7 @@ void CPolygon::Draw()
 	// Draw vertices
 	BindBuffers();
 	if (isOverlaping)
-	{
 		glColor3f(0, 1, 0);
-		//isOverlaping = false;
-	}
 	else
 		glColor3f(0, 0, 1);
 	glDrawArrays(GL_LINE_LOOP, 0, points.size());
@@ -49,8 +46,8 @@ void CPolygon::Draw()
 
 	glPopMatrix();
 
-	//if (gVars->bDebugElem)
-		//aabb->Draw();
+	if (gVars->bDebugElem && gVars->bToggleAABB)
+		aabb->Draw();
 }
 
 size_t	CPolygon::GetIndex() const
@@ -96,8 +93,8 @@ bool CPolygon::GJK(const CPolygon& poly, std::vector<Vec2>& outSimplex) const
 {
 	Vec2 dir = Vec2(1.0f, 0.0f);
 
-	Vec2 A				= poly.Support(dir) - Support(dir * -1.0f);
-	Vec2 ANormalized	= A.Normalized();
+	Vec2 A = poly.Support(dir) - Support(dir * -1.0f);
+	Vec2 ANormalized = A.Normalized();
 
 	dir = ANormalized * -1.0f;
 
@@ -176,13 +173,13 @@ void CPolygon::EPA(std::vector<Vec2>& polytope, const CPolygon& poly, Vec2& colP
 	float minDistance = FLT_MAX;
 	float newDistance = 0.0f;
 	size_t minIndex = 0;
-	for(size_t limit = 0; limit < MAXITERATION; limit++)
+	for (size_t limit = 0; limit < MAXITERATION; limit++)
 	{
 		minDistance = FLT_MAX;
 		for (size_t i = 0; i < polytope.size(); i++)
 		{
 			A = polytope[i];
-			B = ((i+1) < polytope.size()) ? polytope[i+1] : polytope[0];
+			B = ((i + 1) < polytope.size()) ? polytope[i + 1] : polytope[0];
 			AB = B - A;
 			normal = Vec2(AB.y, -1 * AB.x).Normalized();
 			distance = normal | A;
@@ -201,33 +198,25 @@ void CPolygon::EPA(std::vector<Vec2>& polytope, const CPolygon& poly, Vec2& colP
 		}
 		C = poly.Support(minNormal) - Support(minNormal * -1);
 		newDistance = minNormal | C;
-		if (fabs(newDistance) - minDistance <= EPSILON)
+		if (fabs(newDistance - minDistance) < EPSILON)
 		{
 			colDist = minDistance + EPSILON;
-			//colNormal = minNormal * -1;
-			Vec2 ABNormalized = (poly.position - position).Normalized();
-			Vec2 test1 = poly.Support(minNormal);
-			Vec2 ATest1 = test1 - position;
+			Vec2 t1 = poly.Support(minNormal);
+			Vec2 t2 = Support(minNormal * -1);
+			float AT1L = (t1 - position).GetLength();
+			float T1BL = (poly.position - t1).GetLength();
+			float AT2L = (t2 - position).GetLength();
+			float T2BL = (poly.position - t2).GetLength();
 
-			Vec2 test2 = Support(minNormal * -1);
-			Vec2 BTest2 = test2 - poly.position;
-
-			float dist1 = ABNormalized | ATest1;
-			float dist2 = (ABNormalized * -1.0f) | BTest2;
-
-			float angle1 = ABNormalized | ATest1.Normalized();
-			float angle2 = (ABNormalized * -1.0f) | BTest2.Normalized();
-
-			bool testResult = (angle1 >= angle2);
-			
+			bool testResult = (AT1L + T1BL < AT2L + T2BL);
 			if (testResult)
 			{
-				colPoint = test1;
+				colPoint = t1;
 				colNormal = minNormal * -1;
 			}
 			else
 			{
-				colPoint = test2;
+				colPoint = t2;
 				colNormal = minNormal;
 			}
 			return;

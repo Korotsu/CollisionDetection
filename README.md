@@ -19,10 +19,19 @@ those toggled elements are :
 
 The base color for colliding shape is the same as the AABB (blue == not colliding, green == colliding). 
 
+## Clips
 **Broad phase**
 ![001](./SCREENS/Gifs/001.gif)
 ![002](./SCREENS/Gifs/002.gif)
 ![003](./SCREENS/Gifs/003.gif)
 ![004](./SCREENS/Gifs/004.gif)
 ![005](./SCREENS/Gifs/005.gif)
+
+**Narrow phase**
+![001](./SCREENS/Gifs/006.gif)
+![002](./SCREENS/Gifs/007.gif)
+![003](./SCREENS/Gifs/008.gif)
+![004](./SCREENS/Gifs/009.gif)
+![005](./SCREENS/Gifs/010.gif)
+
 > Note: All gifs/clips were taken with gyazo, as so the framerate is low to save on file size.

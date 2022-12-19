@@ -19,7 +19,10 @@ void InitApplication(int width, int height, float worldHeight)
 
 	gVars->bDebug = false;
 	gVars->bDebugElem = false;
-	gVars->bSwapShape = false;
+	gVars->bToggleAABB = false;
+	gVars->bToggleMinkoskiCreationDraw = false;
+	gVars->bToggleMinkoskiShapeDraw = false;
+	gVars->bToggleLastSimplexDraw = false;
 }
 
 void RunApplication()

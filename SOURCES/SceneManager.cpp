@@ -52,7 +52,7 @@ void CSceneManager::ReloadScene()
 
 void CSceneManager::CheckSceneUpdate()
 {
-	gVars->pRenderer->DisplayText("F1: Reset scene, F2: prev scene, F3: next scene, cur scene: " + std::to_string(m_currentScene) + ", F4: debug, F5: lock FPS, F8: toggle AABB");
+	gVars->pRenderer->DisplayText("F1: Reset scene, F2: prev scene, F3: next scene, cur scene: " + std::to_string(m_currentScene) + ", F4: debug, F5: lock FPS, F8: Draw debug elements");
 
 	if (gVars->pRenderWindow->JustPressedKey(Key::F2) && m_currentScene > 0)
 	{

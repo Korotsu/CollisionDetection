@@ -11,7 +11,10 @@ struct SGlobalVariables
 
 	bool					bDebug;
 	bool					bDebugElem;
-	bool					bSwapShape;
+	bool					bToggleAABB;
+	bool					bToggleMinkoskiCreationDraw;
+	bool					bToggleMinkoskiShapeDraw;
+	bool					bToggleLastSimplexDraw;
 };
 
 extern SGlobalVariables* gVars;
