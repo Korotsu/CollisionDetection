@@ -6,6 +6,7 @@ The goal of the project is to implement a performant collision detection algorit
 ## Features states
 
 **Broad phase** : Completed, I implemented the Sweep and Prune algorithm because it is the most performant algorithm for 2D collision detection and is very easy to implement. I also for experiment purposes improve the Brut force algorithm. All broad phase algorithm inherits from the Broad phase interface and can be founded in the Broad Phase folder.
+
 **Narrow phase** : Completed, I implemented my own version of the GJK and EPA algorithms. 
 
 **Debug tools** : I also created an optimized AABB creator and drawer to create/modify AABB only when needed to save performance.
