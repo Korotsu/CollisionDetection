@@ -12,7 +12,7 @@ The goal of the project is to implement a performant collision detection algorit
 **Debug tools** : I also created an optimized AABB creator and drawer to create/modify AABB only when needed to save performance.
 In addition to the optimized AABB creator/drawer, i implemented new inputs to help visualize collision elements:
 -F8 to open the draw debug element menu + visualization.
--Numpad 1,2,3 to toggle some elements which should be drawn or not.
+-Numpad 0,1,2,3 to toggle some elements which should be drawn or not.
 those toggled elements are :
 -AABB colliding state (blue == not colliding, green == colliding).
 -minkowski shape and minkowski creation.

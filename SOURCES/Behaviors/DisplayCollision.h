@@ -23,7 +23,9 @@ private:
 		//gVars->pPhysicEngine->Activate(false);
 
 
-		Vec2 point, normal;
+		//Vec2 point, normal;
+		std::vector<Vec2> points;
+		Vec2 normal, point;
 		float dist;
 
 		//Draw center cross.
@@ -33,11 +35,15 @@ private:
 		if (gVars->bDebugElem)
 		{
 			std::vector<Vec2> outResult;
-			if (polyA->CheckCollision(*polyB, point, normal, dist, outResult))
+			if (polyA->CheckCollisionDebug(*polyB, points, normal, dist, outResult))
 			{
-				gVars->pRenderer->DisplayTextWorld("collision point", point);
 				gVars->pRenderer->DisplayText("Collision distance : " + std::to_string(dist), 50, 50);
-				gVars->pRenderer->DrawLine(point, point + normal * (dist - EPSILON), 1.0f, 0.0f, 1.0f);
+				
+				gVars->pRenderer->DisplayTextWorld("pt1", points[0]);
+				gVars->pRenderer->DrawLine(points[0], points[0] + normal * (dist - EPSILON), 1.0f, 0.0f, 1.0f);
+
+				gVars->pRenderer->DisplayTextWorld("pt2", points[1]);
+				gVars->pRenderer->DrawLine(points[1], points[1] + (normal * -1) * (dist - EPSILON), 1.0f, 0.0f, 1.0f);
 
 				if (gVars->bToggleLastSimplexDraw)
 				{
@@ -75,8 +81,9 @@ private:
 		}
 		else if (polyA->CheckCollision(*polyB, point, normal, dist))
 		{
-			gVars->pRenderer->DisplayTextWorld("collision point", point);
 			gVars->pRenderer->DisplayText("Collision distance : " + std::to_string(dist), 50, 50);
+
+			gVars->pRenderer->DisplayTextWorld("pt1", point);
 			gVars->pRenderer->DrawLine(point, point + normal * (dist - EPSILON), 1.0f, 0.0f, 1.0f);
 		}
 	}

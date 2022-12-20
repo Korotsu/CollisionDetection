@@ -89,6 +89,16 @@ bool	CPolygon::CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNor
 	return false;
 }
 
+bool	CPolygon::CheckCollisionDebug(const CPolygon& poly, std::vector<Vec2>& colPoints, Vec2& colNormal, float& colDist, std::vector<Vec2>& outSimplex) const
+{
+	if (GJK(poly, outSimplex))
+	{
+		EPADebug(std::vector<Vec2>(outSimplex), poly, colPoints, colNormal, colDist);
+		return true;
+	}
+	return false;
+}
+
 bool CPolygon::GJK(const CPolygon& poly, std::vector<Vec2>& outSimplex) const
 {
 	Vec2 dir = Vec2(1.0f, 0.0f);
@@ -201,6 +211,112 @@ void CPolygon::EPA(std::vector<Vec2>& polytope, const CPolygon& poly, Vec2& colP
 		if (fabs(newDistance - minDistance) < EPSILON)
 		{
 			colDist = minDistance + EPSILON;
+			Vec2 pt1 = poly.Support(minNormal);
+			Vec2 pt2 = Support(minNormal * -1);
+			Vec2 t1 = pt1 + (minNormal * -1) * (minDistance - EPSILON);
+			Vec2 t2 = pt2 + minNormal * (minDistance - EPSILON);
+			float AT1L = (t1 - position).GetLength();
+			float T1BL = (poly.position - t1).GetLength();
+			float AT2L = (t2 - position).GetLength();
+			float T2BL = (poly.position - t2).GetLength();
+
+			bool testResult = ( (AT1L + T1BL) - (AT2L + T2BL) < EPSILON);
+			bool t1In = IsPointInside(t1);
+			bool t2In = poly.IsPointInside(t2);
+
+			if (t1In && t2In)
+			{
+				if (testResult)
+				{
+					colPoint = pt1;
+					colNormal = minNormal * -1;
+				}
+				else
+				{
+					colPoint = pt2;
+					colNormal = minNormal;
+				}
+			}
+			else if(t1In)
+			{
+				colPoint = pt1;
+				colNormal = minNormal * -1;
+			}
+			else if (t2In)
+			{
+				colPoint = pt2;
+				colNormal = minNormal;
+			}
+			else
+			{
+				if (testResult)
+				{
+					colPoint = pt1;
+					colNormal = minNormal * -1;
+				}
+				else
+				{
+					colPoint = pt2;
+					colNormal = minNormal;
+				}
+			}
+
+			/*if (testResult && IsPointInside(t1))
+			{
+				colPoint = pt1;
+				colNormal = minNormal * -1;
+			}
+			else
+			{
+				colPoint = pt2;
+				colNormal = minNormal;
+			}*/
+			return;
+		}
+		polytope.insert(polytope.begin() + minIndex, C);
+	}
+}
+
+void CPolygon::EPADebug(std::vector<Vec2>& polytope, const CPolygon& poly, std::vector<Vec2>& colPoints, Vec2& colNormal, float& colDist) const
+{
+	Vec2 A = Vec2(0, 0);
+	Vec2 B = Vec2(0, 0);
+	Vec2 C = Vec2(0, 0);
+	Vec2 AB = Vec2(0, 0);
+	Vec2 normal = Vec2(0, 0);
+	Vec2 minNormal = Vec2(0, 0);
+	float distance = 0.0f;
+	float minDistance = FLT_MAX;
+	float newDistance = 0.0f;
+	size_t minIndex = 0;
+	for (size_t limit = 0; limit < MAXITERATION; limit++)
+	{
+		minDistance = FLT_MAX;
+		for (size_t i = 0; i < polytope.size(); i++)
+		{
+			A = polytope[i];
+			B = ((i + 1) < polytope.size()) ? polytope[i + 1] : polytope[0];
+			AB = B - A;
+			normal = Vec2(AB.y, -1 * AB.x).Normalized();
+			distance = normal | A;
+
+			if (distance < 0)
+			{
+				distance *= -1;
+				normal *= -1;
+			}
+			if (distance < minDistance)
+			{
+				minDistance = distance;
+				minIndex = i + 1;
+				minNormal = normal;
+			}
+		}
+		C = poly.Support(minNormal) - Support(minNormal * -1);
+		newDistance = minNormal | C;
+		if (fabs(newDistance - minDistance) < EPSILON)
+		{
+			colDist = minDistance + EPSILON;
 			Vec2 t1 = poly.Support(minNormal);
 			Vec2 t2 = Support(minNormal * -1);
 			float AT1L = (t1 - position).GetLength();
@@ -208,7 +324,7 @@ void CPolygon::EPA(std::vector<Vec2>& polytope, const CPolygon& poly, Vec2& colP
 			float AT2L = (t2 - position).GetLength();
 			float T2BL = (poly.position - t2).GetLength();
 
-			bool testResult = (AT1L + T1BL < AT2L + T2BL);
+			/*bool testResult = (AT1L + T1BL < AT2L + T2BL);
 			if (testResult)
 			{
 				colPoint = t1;
@@ -218,7 +334,10 @@ void CPolygon::EPA(std::vector<Vec2>& polytope, const CPolygon& poly, Vec2& colP
 			{
 				colPoint = t2;
 				colNormal = minNormal;
-			}
+			}*/
+			colNormal = minNormal * -1;
+			colPoints.push_back(t1);
+			colPoints.push_back(t2);
 			return;
 		}
 		polytope.insert(polytope.begin() + minIndex, C);
