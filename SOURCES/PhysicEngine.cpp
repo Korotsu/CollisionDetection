@@ -48,12 +48,30 @@ void	CPhysicEngine::DetectCollisions()
 	}
 }
 
+
 void	CPhysicEngine::Step(float deltaTime)
 {
+	deltaTime = Min(deltaTime, 1.0f / 15.0f);
+
 	if (!m_active)
 	{
 		return;
 	}
+
+	Vec2 gravity(0, -9.8f);
+	float elasticity = 0.6f;
+
+	/*gVars->pWorld->ForEachPolygon([&](CPolygonPtr poly)
+	{
+		if (poly->density == 0.0f)
+		{
+			return;
+		}
+
+		poly->rotation.Rotate(RAD2DEG(poly->angularVelocity * deltaTime));
+		poly->position += poly->speed * deltaTime;
+		poly->speed += gravity * deltaTime;
+	});*/
 
 	DetectCollisions();
 }
@@ -71,12 +89,14 @@ void	CPhysicEngine::CollisionNarrowPhase()
 		ptr->isOverlaping = false;
 	}
 	m_collidingPairs.clear();
+
 	for (const SPolygonPair& pair : m_pairsToCheck)
 	{
 		SCollision collision;
 		collision.polyA = pair.polyA;
 		collision.polyB = pair.polyB;
-		if (pair.polyA->CheckCollision(*(pair.polyB), collision.point, collision.normal, collision.distance))
+
+		if (pair.polyA->CheckCollision(*(pair.polyB), collision))
 		{
 			m_collidingPairs.push_back(collision);
 			pair.polyA->isOverlaping = true;

@@ -16,6 +16,12 @@ public:
 		{
 			for (size_t j = i + 1; j < gVars->pWorld->GetPolygonCount(); ++j)
 			{
+				CPolygonPtr pA = gVars->pWorld->GetPolygon(i);
+				CPolygonPtr pB = gVars->pWorld->GetPolygon(j);
+				
+				if (pA->density == 0.0f && pB->density == 0.0f)
+					continue;
+
 				pairsToCheck.push_back(SPolygonPair(gVars->pWorld->GetPolygon(i), gVars->pWorld->GetPolygon(j)));
 			}
 		}

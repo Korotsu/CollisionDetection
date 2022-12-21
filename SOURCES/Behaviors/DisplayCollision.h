@@ -21,12 +21,9 @@ private:
 	virtual void Update(float frameTime) override
 	{
 		//gVars->pPhysicEngine->Activate(false);
-
-
-		//Vec2 point, normal;
-		std::vector<Vec2> points;
-		Vec2 normal, point;
-		float dist;
+		SCollision collisionInfo;
+		collisionInfo.polyA = polyA;
+		collisionInfo.polyB = polyB;
 
 		//Draw center cross.
 		gVars->pRenderer->DrawLine(Vec2(-1,-1), Vec2(1,1), 0.0f, 0.0f, 0.0f);
@@ -35,15 +32,25 @@ private:
 		if (gVars->bDebugElem)
 		{
 			std::vector<Vec2> outResult;
-			if (polyA->CheckCollisionDebug(*polyB, points, normal, dist, outResult))
+			Vec2 otherResult = Vec2();
+			if (polyA->CheckCollisionDebug(*polyB, collisionInfo, otherResult, outResult))
 			{
-				gVars->pRenderer->DisplayText("Collision distance : " + std::to_string(dist), 50, 50);
+				gVars->pRenderer->DisplayText("Collision distance : " + std::to_string(collisionInfo.distance), 50, 50);
 				
-				gVars->pRenderer->DisplayTextWorld("pt1", points[0]);
-				gVars->pRenderer->DrawLine(points[0], points[0] + normal * (dist - EPSILON), 1.0f, 0.0f, 1.0f);
+				if (gVars->bToggleEPADebug)
+				{
+					gVars->pRenderer->DisplayTextWorld("pt1", collisionInfo.point);
+					gVars->pRenderer->DrawLine(collisionInfo.point, collisionInfo.point - collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
 
-				gVars->pRenderer->DisplayTextWorld("pt2", points[1]);
-				gVars->pRenderer->DrawLine(points[1], points[1] + (normal * -1) * (dist - EPSILON), 1.0f, 0.0f, 1.0f);
+					gVars->pRenderer->DisplayTextWorld("pt2", otherResult);
+					gVars->pRenderer->DrawLine(otherResult, otherResult + collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
+
+				}
+				else
+				{
+					gVars->pRenderer->DisplayTextWorld("pt", collisionInfo.point);
+					gVars->pRenderer->DrawLine(collisionInfo.point, collisionInfo.point - collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
+				}
 
 				if (gVars->bToggleLastSimplexDraw)
 				{
@@ -79,12 +86,12 @@ private:
 				}
 			}
 		}
-		else if (polyA->CheckCollision(*polyB, point, normal, dist))
+		else if (polyA->CheckCollision(*polyB, collisionInfo))
 		{
-			gVars->pRenderer->DisplayText("Collision distance : " + std::to_string(dist), 50, 50);
+			gVars->pRenderer->DisplayText("Collision distance : " + std::to_string(collisionInfo.distance), 50, 50);
 
-			gVars->pRenderer->DisplayTextWorld("pt1", point);
-			gVars->pRenderer->DrawLine(point, point + normal * (dist - EPSILON), 1.0f, 0.0f, 1.0f);
+			gVars->pRenderer->DisplayTextWorld("pt", collisionInfo.point);
+			gVars->pRenderer->DrawLine(collisionInfo.point, collisionInfo.point - collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
 		}
 	}
 };

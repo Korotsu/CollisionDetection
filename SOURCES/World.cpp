@@ -46,7 +46,7 @@ CPolygonPtr		CWorld::AddSymetricPolygon(float radius, size_t sides)
 	return poly;
 }
 
-CPolygonPtr CWorld::AddRandomPoly(const SRandomPolyParams& params)
+CPolygonPtr		CWorld::AddRandomPoly(const SRandomPolyParams& params)
 {
 	size_t pointsCount = (size_t)Random(params.minPoints, params.maxPoints);
 	float radius = Random(params.minRadius, params.maxRadius);

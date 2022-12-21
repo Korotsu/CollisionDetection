@@ -15,6 +15,8 @@ enum class Key : unsigned int
 	NumPad1,
 	NumPad2,
 	NumPad3,
+	NumPad4,
+	NumPad5,
 
 	Count,
 };
@@ -23,13 +25,13 @@ class CRenderWindow
 {
 public:
 	CRenderWindow(int width, int height)
-		: m_width(width), m_height(height) {}
+		: m_width(width), m_height(height){}
 
-	int				GetWidth() const { return m_width; }
-	int				Getheight() const { return m_height; }
+	int				GetWidth() const	{ return m_width;}
+	int				Getheight() const	{ return m_height; }
 
 	virtual void	Init() = 0;
-	virtual void	Reshape(int width, int height) {}
+	virtual void	Reshape(int width, int height){}
 
 	virtual Vec2	GetMousePos() = 0;
 	virtual bool	GetMouseButton(int button) = 0;

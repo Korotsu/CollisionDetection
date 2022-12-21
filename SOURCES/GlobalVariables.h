@@ -15,6 +15,8 @@ struct SGlobalVariables
 	bool					bToggleMinkoskiCreationDraw;
 	bool					bToggleMinkoskiShapeDraw;
 	bool					bToggleLastSimplexDraw;
+	bool					bToggleEPADebug;
+	bool					bToggleCollision;
 };
 
 extern SGlobalVariables* gVars;

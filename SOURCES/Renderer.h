@@ -7,6 +7,7 @@
 #include "Timer.h"
 #include "Maths.h"
 
+
 enum class FPS : int
 {
 	Unlocked = 0,

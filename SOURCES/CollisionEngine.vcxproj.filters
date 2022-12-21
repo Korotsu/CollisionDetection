@@ -111,6 +111,33 @@
     <ClInclude Include="BroadPhaseImprovedBrut.h">
       <Filter>Fichiers sources\BroadPhaseAlgorithms</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\SceneComplexPhysic.h">
+      <Filter>Fichiers sources\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\SceneSimplePhysic.h">
+      <Filter>Fichiers sources\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\SceneSmallPhysic.h">
+      <Filter>Fichiers sources\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="FluidMesh.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="FluidSpawner.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="FluidSystem.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="InertiaTensor.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFluid.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -150,6 +177,12 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="AABB.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="FluidSystem.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="InertiaTensor.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

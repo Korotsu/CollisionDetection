@@ -13,7 +13,7 @@
 struct SConstraint
 {
 	SConstraint(CPolygonPtr _A, CPolygonPtr _B)
-		: A(_A), B(_B) {}
+		: A(_A), B(_B){}
 
 	CPolygonPtr A, B;
 	float distance = DISTANCE;
@@ -33,7 +33,30 @@ private:
 
 	void SolveChainConstraints()
 	{
-		//m_chain[0]->speed = Vec2();
+		m_chain[0]->speed = Vec2();
+
+		for (size_t i = 0; i + 1 < m_chain.size(); ++i)
+		{
+			CPolygonPtr c1 = m_chain[i];
+			CPolygonPtr c2 = m_chain[i + 1];
+
+			float coeff = (i == 0) ? 0.0f : 0.5f;
+
+			Vec2 diffPos = c2->position - c1->position;
+			float length = diffPos.GetLength();
+
+			Vec2 diffSpeed = c2->speed - c1->speed;
+
+			Vec2 normal = diffPos / length;
+			float impulse = (diffSpeed | normal);
+
+			c1->speed += normal * ((diffSpeed | normal) * 0.5f * coeff);
+			c2->speed -= normal * ((diffSpeed | normal) * 0.5f * (1.0f - coeff));
+
+			float moveSpeed = Sign(length - DISTANCE) * 7.0f;
+			c1->speed += normal * moveSpeed * coeff;
+			c2->speed -= normal * moveSpeed * (1.0f - coeff);
+		}
 	}
 
 	virtual void Start() override
@@ -48,7 +71,7 @@ private:
 
 		InitChain(8, Vec2(20.0f, 20.0f));
 
-		// gVars->pPhysicEngine->Activate(false);
+		gVars->pPhysicEngine->Activate(false);
 	}
 
 	virtual void Update(float frameTime) override
@@ -65,12 +88,17 @@ private:
 			{
 				CPolygonPtr c1 = m_circles[i];
 				CPolygonPtr c2 = m_circles[j];
-
+			
 				Vec2 diffPos = c2->position - c1->position;
 				Vec2 diffSpeed = c2->speed - c1->speed;
 				if (diffPos.GetSqrLength() < 4.0f * RADIUS * RADIUS && ((diffSpeed | diffPos) < 0.0f))
 				{
-					// Handle collisions here
+					Vec2 normal = diffPos.Normalized();
+					Vec2 diff = normal * (diffSpeed | normal) * 0.5f;
+
+
+					c1->speed += diff * 1.8f;
+					c2->speed -= diff * 1.8f;
 				}
 			}
 		}
@@ -97,7 +125,7 @@ private:
 				circle->speed.y *= -1.0f;
 			}
 		}
-
+			
 		SolveChainConstraints();
 
 		for (CPolygonPtr& circle : m_circles)

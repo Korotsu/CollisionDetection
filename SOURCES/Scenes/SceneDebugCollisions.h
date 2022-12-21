@@ -20,8 +20,10 @@ private:
 
 		CPolygonPtr secondPoly = gVars->pWorld->AddTriangle(25.0f, 20.0f);
 		//CPolygonPtr secondPoly = gVars->pWorld->AddSymetricPolygon(5, 50);
+		//CPolygonPtr secondPoly = gVars->pWorld->AddSquare(10.0f);
 		secondPoly->SetPosition(Vec2(5.0f, 5.0f));
 		secondPoly->density = 0.0f;
+		secondPoly->Build();
 
 		CDisplayCollision* displayCollision = static_cast<CDisplayCollision*>(gVars->pWorld->AddBehavior<CDisplayCollision>(nullptr).get());
 		displayCollision->polyA = firstPoly;

@@ -23,6 +23,8 @@ void InitApplication(int width, int height, float worldHeight)
 	gVars->bToggleMinkoskiCreationDraw = false;
 	gVars->bToggleMinkoskiShapeDraw = false;
 	gVars->bToggleLastSimplexDraw = false;
+	gVars->bToggleEPADebug = false;
+	gVars->bToggleCollision = true;
 }
 
 void RunApplication()

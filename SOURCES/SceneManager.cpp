@@ -38,9 +38,9 @@ void CSceneManager::LoadScene(size_t index)
 	m_scenes[index]->Create();
 
 	gVars->pWorld->ForEachBehavior([&](CBehaviorPtr& behavior)
-		{
-			behavior->Start();
-		});
+	{
+		behavior->Start();
+	});
 
 	m_currentScene = index;
 }

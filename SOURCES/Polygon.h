@@ -8,6 +8,8 @@
 #include "Maths.h"
 #include "AABB.h"
 
+struct SCollision;
+
 class CPolygon : public CGLObject
 {
 private:
@@ -41,22 +43,35 @@ public:
 	void				Build();
 	void				Draw();
 	size_t				GetIndex() const;
+
+	float				GetArea() const;
+
 	Vec2				TransformPoint(const Vec2& point) const;
 	Vec2				InverseTransformPoint(const Vec2& point) const;
 
 	// if point is outside then returned distance is negative (and doesn't make sense)
 	bool				IsPointInside(const Vec2& point) const;
 
-	bool				CheckCollision(const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist, std::vector<Vec2>& outSimplex = std::vector<Vec2>()) const;
-	bool				CheckCollisionDebug(const CPolygon& poly, std::vector<Vec2>& colPoints, Vec2& colNormal, float& colDist, std::vector<Vec2>& outSimplex = std::vector<Vec2>()) const;
+	bool				CheckCollision(CPolygon& poly, SCollision& collisionInfo);
+	bool				CheckCollisionDebug(CPolygon& poly, SCollision& collisionInfo, Vec2& otherResult = Vec2(), std::vector<Vec2>& outSimplex = std::vector<Vec2>());
 	bool				GJK(const CPolygon& poly, std::vector<Vec2>& outSimplex) const;
-	void				EPA(std::vector<Vec2>& polytope, const CPolygon& poly, Vec2& colPoint, Vec2& colNormal, float& colDist) const;
-	void				EPADebug(std::vector<Vec2>& polytope, const CPolygon& poly, std::vector<Vec2>& colPoints, Vec2& colNormal, float& colDist) const;
+	void				EPA(std::vector<Vec2>& polytope, CPolygon& poly, SCollision& collisionInfo);
+	void				EPADebug(std::vector<Vec2>& polytope, CPolygon& poly, SCollision& collisionInfo, Vec2& otherResult);
+	// If line intersect polygon, colDist is the penetration distance, and colPoint most penetrating point of poly inside the line
+	bool				IsLineIntersectingPolygon(const Line& line, Vec2& colPoint, float& colDist) const;
+	//void				UpdateAABB();
+	float				GetMass() const;
+	float				GetInertiaTensor() const;
+
+	Vec2				GetPointVelocity(const Vec2& point) const;
 	// Physics
 	float				density;
 	Vec2				speed;
 	CAABB* aabb;
 	bool isOverlaping = false;
+	float				angularVelocity = 0.0f;
+	Vec2				forces;
+	float				torques = 0.0f;
 
 	inline const Vec2 Support(const Vec2& dir) const
 	{
@@ -94,8 +109,18 @@ public:
 
 private:
 	void				BuildLines();
+
+	void				ComputeArea();
+	void				RecenterOnCenterOfMass(); // Area must be computed
+	void				ComputeLocalInertiaTensor(); // Must be centered on center of mass
 	size_t				m_index;
+
 	std::vector<Line>	m_lines;
+
+	float				m_signedArea;
+
+	// Physics
+	float				m_localInertiaTensor; // don't consider mass
 };
 
 typedef std::shared_ptr<CPolygon>	CPolygonPtr;

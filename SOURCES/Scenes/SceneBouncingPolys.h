@@ -33,7 +33,7 @@ protected:
 		
 		for (size_t i = 0; i < m_polyCount; ++i)
 		{
-			gVars->pWorld->AddRandomPoly(params)->density = 0.0f;
+			gVars->pWorld->AddRandomPoly(params);// ->density = 0.0f;
 		}
 	}
 

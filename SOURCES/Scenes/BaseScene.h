@@ -15,17 +15,17 @@ class CBaseScene : public IScene
 {
 protected:
 	CBaseScene(float borderSize = 1.0f, float worldHeight = 50.0f)
-		: m_borderSize(borderSize), m_worldHeight(worldHeight) {}
+		: m_borderSize(borderSize), m_worldHeight(worldHeight){}
 
 	virtual void Create() override
 	{
 		gVars->pRenderer->SetWorldHeight(m_worldHeight);
 		//CreateBorderRectangles();
 
-
+		
 		gVars->pWorld->AddBehavior<CPolygonMoverTool>(nullptr);
 	}
-
+	
 	void CreateBorderRectangles()
 	{
 		CPolygonPtr poly;

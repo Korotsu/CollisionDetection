@@ -19,7 +19,7 @@ CRenderer::CRenderer(float worldHeight)
 	: m_worldHeight(worldHeight), m_lastFPS(0.0f), m_lastFPSSince(0.0f), m_textCursor(0), m_FPS(FPS::Unlocked)
 {}
 
-CRenderer::~CRenderer() {}
+CRenderer::~CRenderer(){}
 
 void CRenderer::SetWorldHeight(float worldHeight)
 {
@@ -91,6 +91,8 @@ void CRenderer::Init()
 
 	// Load scene 0
 	gVars->pSceneManager->LoadScene(0);
+
+
 }
 
 void CRenderer::Reset()
@@ -135,6 +137,14 @@ void CRenderer::Update()
 		{
 			gVars->bToggleLastSimplexDraw = !gVars->bToggleLastSimplexDraw;
 		}
+		if (gVars->pRenderWindow->JustPressedKey(Key::NumPad4))
+		{
+			gVars->bToggleEPADebug = !gVars->bToggleEPADebug;
+		}
+		if (gVars->pRenderWindow->JustPressedKey(Key::NumPad5))
+		{
+			gVars->bToggleCollision = !gVars->bToggleCollision;
+		}
 	}
 	
 	gVars->pSceneManager->CheckSceneUpdate();
@@ -144,8 +154,9 @@ void CRenderer::Update()
 	float frameTime = UpdateFrameTime();
 	DrawFPS(frameTime);
 
-	gVars->pPhysicEngine->Step(frameTime);
 
+	gVars->pPhysicEngine->Step(frameTime);
+	
 	timer.Start();
 	UpdateWorld(frameTime);
 	timer.Stop();
@@ -284,3 +295,4 @@ float  CRenderer::UpdateFrameTime()
 
 	return frameTime;
 }
+

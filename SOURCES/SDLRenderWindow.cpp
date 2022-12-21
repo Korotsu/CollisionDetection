@@ -7,7 +7,7 @@
 #include "GlobalVariables.h"
 #include "Renderer.h"
 
-CSDLRenderWindow::CSDLRenderWindow(int width, int height)
+CSDLRenderWindow::CSDLRenderWindow(int width, int height) 
 	: CRenderWindow(width, height)
 {
 	ResetKeys();
@@ -22,11 +22,13 @@ CSDLRenderWindow::CSDLRenderWindow(int width, int height)
 	m_sdlKeyMap[SDL_SCANCODE_KP_1] = Key::NumPad1;
 	m_sdlKeyMap[SDL_SCANCODE_KP_2] = Key::NumPad2;
 	m_sdlKeyMap[SDL_SCANCODE_KP_3] = Key::NumPad3;
+	m_sdlKeyMap[SDL_SCANCODE_KP_4] = Key::NumPad4;
+	m_sdlKeyMap[SDL_SCANCODE_KP_5] = Key::NumPad5;
 }
 
 void CSDLRenderWindow::Init()
 {
-	SDL_Window* window;
+	SDL_Window*		window;
 	SDL_GLContext	context;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -119,41 +121,41 @@ bool CSDLRenderWindow::ProcessEvents()
 			return false;
 
 		case SDL_WINDOWEVENT:
-		{
-			switch (event.window.event)
 			{
-			case SDL_WINDOWEVENT_RESIZED:
-				Reshape(event.window.data1, event.window.data2);
-				break;
+				switch (event.window.event)
+				{
+				case SDL_WINDOWEVENT_RESIZED:
+					Reshape(event.window.data1, event.window.data2);
+					break;
+				}
 			}
-		}
-		break;
+			break;
 
 		case SDL_KEYDOWN:
-		{
-			if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 			{
-				return false;
-			}
+				if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+				{
+					return false;
+				}
 
-			auto itSdlKey = m_sdlKeyMap.find(event.key.keysym.scancode);
-			if (itSdlKey != m_sdlKeyMap.end())
-			{
-				m_justPressedKeys[(size_t)itSdlKey->second] = !m_pressedKeys[(size_t)itSdlKey->second];
-				m_pressedKeys[(size_t)itSdlKey->second] = true;
+				auto itSdlKey = m_sdlKeyMap.find(event.key.keysym.scancode);
+				if (itSdlKey != m_sdlKeyMap.end())
+				{
+					m_justPressedKeys[(size_t)itSdlKey->second] = !m_pressedKeys[(size_t)itSdlKey->second];
+					m_pressedKeys[(size_t)itSdlKey->second] = true;					
+				}
 			}
-		}
-		break;
+			break;
 
 		case SDL_KEYUP:
-		{
-			auto itSdlKey = m_sdlKeyMap.find(event.key.keysym.scancode);
-			if (itSdlKey != m_sdlKeyMap.end())
 			{
-				m_pressedKeys[(size_t)itSdlKey->second] = false;
+				auto itSdlKey = m_sdlKeyMap.find(event.key.keysym.scancode);
+				if (itSdlKey != m_sdlKeyMap.end())
+				{
+					m_pressedKeys[(size_t)itSdlKey->second] = false;
+				}
 			}
-		}
-		break;
+			break;
 		}
 	}
 
