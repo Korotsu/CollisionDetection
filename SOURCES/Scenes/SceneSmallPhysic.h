@@ -14,6 +14,8 @@ private:
 	{
 		CBaseScene::Create();
 
+		gVars->pWorld->AddBehavior<CSimplePolygonBounce>(nullptr);
+
 		float size = 0.5f;
 
 		Vec2 start = Vec2(0, -gVars->pRenderer->GetWorldHeight() * 0.5f + (0.5f + 0.5f * size) * m_scale) - Vec2(0, -m_scale * 0);

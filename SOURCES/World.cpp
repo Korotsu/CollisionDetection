@@ -65,8 +65,10 @@ CPolygonPtr		CWorld::AddRandomPoly(const SRandomPolyParams& params)
 	poly->Build();
 	poly->rotation.SetAngle(Random(-180.0f, 180.0f));
 	poly->aabb->ApplyRotation(poly->points, poly->rotation);
-	poly->position.x = Random(params.minBounds.x, params.maxBounds.x);
-	poly->position.y = Random(params.minBounds.y, params.maxBounds.y);
+	poly->SetPosition(Vec2(Random(params.minBounds.x, params.maxBounds.x),
+		Random(params.minBounds.y, params.maxBounds.y)));
+	/*poly->position.x = Random(params.minBounds.x, params.maxBounds.x);
+	poly->position.y = Random(params.minBounds.y, params.maxBounds.y);*/
 
 	Mat2 rot;
 	rot.SetAngle(Random(-180.0f, 180.0f));

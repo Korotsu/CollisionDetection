@@ -14,6 +14,8 @@ private:
 	{
 		CBaseScene::Create();
 
+		gVars->pWorld->AddBehavior<CSimplePolygonBounce>(nullptr);
+
 		float coeff = m_scale * 0.2f;
 
 		CPolygonPtr block = gVars->pWorld->AddRectangle(coeff * 13.0f, coeff * 15.0f);

@@ -138,6 +138,9 @@
     <ClInclude Include="SceneFluid.h">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
+    <ClInclude Include="Behaviors\CollisionResponse.h">
+      <Filter>Fichiers sources\Behaviors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

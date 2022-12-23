@@ -61,7 +61,7 @@ void	CPhysicEngine::Step(float deltaTime)
 	Vec2 gravity(0, -9.8f);
 	float elasticity = 0.6f;
 
-	/*gVars->pWorld->ForEachPolygon([&](CPolygonPtr poly)
+	gVars->pWorld->ForEachPolygon([&](CPolygonPtr poly)
 	{
 		if (poly->density == 0.0f)
 		{
@@ -69,9 +69,11 @@ void	CPhysicEngine::Step(float deltaTime)
 		}
 
 		poly->rotation.Rotate(RAD2DEG(poly->angularVelocity * deltaTime));
-		poly->position += poly->speed * deltaTime;
+		poly->SetRotation(poly->rotation);
+		poly->AddPosition(poly->speed * deltaTime);
+		//poly->position += poly->speed * deltaTime;
 		poly->speed += gravity * deltaTime;
-	});*/
+	});
 
 	DetectCollisions();
 }

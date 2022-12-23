@@ -20,7 +20,7 @@ protected:
 	virtual void Create() override
 	{
 		gVars->pRenderer->SetWorldHeight(m_worldHeight);
-		//CreateBorderRectangles();
+		CreateBorderRectangles();
 
 		
 		gVars->pWorld->AddBehavior<CPolygonMoverTool>(nullptr);
@@ -34,19 +34,19 @@ protected:
 		float halfHeight = gVars->pRenderer->GetWorldHeight() * 0.5f;
 
 		poly = gVars->pWorld->AddRectangle(halfWidth * 2.0f, m_borderSize);
-		poly->position.y = -halfHeight + 0.5f * m_borderSize;
+		poly->SetPosition(Vec2(0.0f, -halfHeight + 0.5f * m_borderSize));
 		poly->density = 0.0f;
 
 		poly = gVars->pWorld->AddRectangle(halfWidth * 2.0f, m_borderSize);
-		poly->position.y = halfHeight - 0.5f * m_borderSize;
+		poly->SetPosition(Vec2(0.0f, halfHeight - 0.5f * m_borderSize));
 		poly->density = 0.0f;
 
 		poly = gVars->pWorld->AddRectangle(m_borderSize, halfHeight * 2.0f);
-		poly->position.x = -halfWidth + 0.5f * m_borderSize;
+		poly->SetPosition(Vec2(-halfWidth + 0.5f * m_borderSize, 0.0f));
 		poly->density = 0.0f;
 
 		poly = gVars->pWorld->AddRectangle(m_borderSize, halfHeight * 2.0f);
-		poly->position.x = halfWidth - 0.5f * m_borderSize;
+		poly->SetPosition(Vec2(halfWidth - 0.5f * m_borderSize, 0.0f));
 		poly->density = 0.0f;
 	}
 

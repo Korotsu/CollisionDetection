@@ -144,7 +144,7 @@ struct Vec2
 		return res;
 	}
 
-	inline void Reflect(Vec2 normal, float elasticity = 1.0f)
+	inline void Reflect(Vec2 normal, float elasticity = 0.0f)
 	{
 		*this = *this - normal * (1.0f + elasticity) * (*this | normal);
 	}

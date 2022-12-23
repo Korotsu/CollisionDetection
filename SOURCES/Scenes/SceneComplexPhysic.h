@@ -14,6 +14,8 @@ private:
 	{
 		CBaseScene::Create();
 
+		gVars->pWorld->AddBehavior<CSimplePolygonBounce>(nullptr);
+
 		float width = gVars->pRenderer->GetWorldWidth();
 		float height = gVars->pRenderer->GetWorldHeight();
 
