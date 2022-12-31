@@ -25,6 +25,7 @@ void InitApplication(int width, int height, float worldHeight)
 	gVars->bToggleLastSimplexDraw = false;
 	gVars->bToggleEPADebug = false;
 	gVars->bToggleCollision = true;
+	gVars->bToggleGravity = false;
 }
 
 void RunApplication()

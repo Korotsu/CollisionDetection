@@ -21,6 +21,8 @@ public:
 
 	Vec2				position;
 	Mat2				rotation;
+	float				bounciness = 0.0f;
+	float				friction = 0.5f;
 
 	inline void SetPosition(const Vec2& inPosition)
 	{
@@ -62,6 +64,7 @@ public:
 	//void				UpdateAABB();
 	float				GetMass() const;
 	float				GetInertiaTensor() const;
+	float				GetInversedInertiaTensor() const;
 
 	Vec2				GetPointVelocity(const Vec2& point) const;
 	// Physics
@@ -89,6 +92,28 @@ public:
 		}
 		return support;
 	}
+
+	/*inline const std::vector<Vec2> MultiPointsSupport(const Vec2& dir) const
+	{
+		std::vector<Vec2> supports;
+		float maxProjection = -FLT_MAX;
+		float tolerance = 0.1f;
+		for (Vec2 vertex : points)
+		{
+			vertex = rotation * vertex + position;
+			float projection = vertex | dir;
+			if (projection )
+			{
+
+			}
+			if (projection > maxProjection)
+			{
+				maxProjection = projection;
+				support = vertex;
+			}
+		}
+		return support;
+	}*/
 
 	inline const std::vector<Vec2> MinkovskiDiff(const CPolygon& poly, std::vector<Vec2>& outABase, std::vector<Vec2>& outBBase) const
 	{

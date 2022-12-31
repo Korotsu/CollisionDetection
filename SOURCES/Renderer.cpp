@@ -145,6 +145,10 @@ void CRenderer::Update()
 		{
 			gVars->bToggleCollision = !gVars->bToggleCollision;
 		}
+		if (gVars->pRenderWindow->JustPressedKey(Key::NumPad6))
+		{
+			gVars->bToggleGravity = !gVars->bToggleGravity;
+		}
 	}
 	
 	gVars->pSceneManager->CheckSceneUpdate();

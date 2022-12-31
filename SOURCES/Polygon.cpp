@@ -279,7 +279,7 @@ void CPolygon::EPA(std::vector<Vec2>& polytope, CPolygon& poly, SCollision& coll
 				}
 				else
 				{
-					collisionInfo.point= pt2;
+					collisionInfo.point = pt2;
 					collisionInfo.normal = minNormal;
 
 				}
@@ -310,6 +310,8 @@ void CPolygon::EPA(std::vector<Vec2>& polytope, CPolygon& poly, SCollision& coll
 
 				}
 			}
+			collisionInfo.relativeVelocity = (collisionInfo.polyA->speed - collisionInfo.polyB->speed);
+			collisionInfo.tangent = Vec3::GetTangent(collisionInfo.relativeVelocity, collisionInfo.normal);
 			return;
 		}
 		polytope.insert(polytope.begin() + minIndex, C);
@@ -378,8 +380,8 @@ void CPolygon::EPADebug(std::vector<Vec2>& polytope, CPolygon& poly, SCollision&
 				if (testResult)
 				{
 					collisionInfo.point = pt1;
-					collisionInfo.normal = minNormal * -1;
 					collisionInfo.polyA.swap(collisionInfo.polyB);
+					collisionInfo.normal = minNormal * -1;
 					otherResult = pt2;
 				}
 				else
@@ -392,8 +394,8 @@ void CPolygon::EPADebug(std::vector<Vec2>& polytope, CPolygon& poly, SCollision&
 			else if (t1In)
 			{
 				collisionInfo.point = pt1;
-				collisionInfo.normal = minNormal * -1;
 				collisionInfo.polyA.swap(collisionInfo.polyB);
+				collisionInfo.normal = minNormal * -1;
 				otherResult = pt2;
 			}
 			else if (t2In)
@@ -407,8 +409,8 @@ void CPolygon::EPADebug(std::vector<Vec2>& polytope, CPolygon& poly, SCollision&
 				if (testResult)
 				{
 					collisionInfo.point = pt1;
-					collisionInfo.normal = minNormal * -1;
 					collisionInfo.polyA.swap(collisionInfo.polyB);
+					collisionInfo.normal = minNormal * -1;
 					otherResult = pt2;
 				}
 				else
@@ -418,6 +420,8 @@ void CPolygon::EPADebug(std::vector<Vec2>& polytope, CPolygon& poly, SCollision&
 					otherResult = pt1;
 				}
 			}
+			collisionInfo.relativeVelocity = (collisionInfo.polyA->speed - collisionInfo.polyB->speed);
+			collisionInfo.tangent = Vec3::GetTangent(collisionInfo.relativeVelocity, collisionInfo.normal);
 			return;
 		}
 		polytope.insert(polytope.begin() + minIndex, C);
@@ -429,10 +433,15 @@ float CPolygon::GetMass() const
 	return density * GetArea();
 }
 
-
 float CPolygon::GetInertiaTensor() const
 {
 	return m_localInertiaTensor * GetMass();
+}
+
+float CPolygon::GetInversedInertiaTensor() const
+{
+	float result = GetInertiaTensor();
+	return (result) ? (1/result) : FLT_MAX;
 }
 
 Vec2 CPolygon::GetPointVelocity(const Vec2& point) const

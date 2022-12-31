@@ -14,7 +14,7 @@ private:
 	{
 		CBaseScene::Create();
 
-		gVars->pWorld->AddBehavior<CSimplePolygonBounce>(nullptr);
+		gVars->pWorld->AddBehavior<CCollisionResponse>(nullptr);
 
 		float size = 0.5f;
 

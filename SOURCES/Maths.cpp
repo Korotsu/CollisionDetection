@@ -118,6 +118,25 @@ bool Solve2DLCP(const Mat2& A, const Mat2& invA, const Vec2& b, Vec2& x)
 	return (y.x >= 0.0f && y.y >= 0.0f);
 }
 
+Vec2::Vec2(const Vec3& _vec3)
+{
+	x = _vec3.x;
+	y = _vec3.y;
+}
+
+inline void Vec2::operator=(const Vec3& rhs)
+{
+	x = rhs.x;
+	y = rhs.y;
+}
+
+inline Vec2& Vec2::operator+=(const Vec3& rhs)
+{
+	x += rhs.x;
+	y += rhs.y;
+	return *this;
+}
+
 
 /*float KernelDefault(float r, float h)
 {

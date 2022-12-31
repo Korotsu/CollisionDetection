@@ -17,6 +17,7 @@ struct SGlobalVariables
 	bool					bToggleLastSimplexDraw;
 	bool					bToggleEPADebug;
 	bool					bToggleCollision;
+	bool					bToggleGravity;
 };
 
 extern SGlobalVariables* gVars;

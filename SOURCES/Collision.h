@@ -67,17 +67,24 @@ struct SContact
 struct SCollision
 {
 	SCollision() = default;
-	SCollision(CPolygonPtr _polyA, CPolygonPtr _polyB, Vec2	_point, Vec2 _normal, float _distance)
-		: polyA(_polyA), polyB(_polyB), point(_point), normal(_normal), distance(_distance){}
+	SCollision(CPolygonPtr _polyA, CPolygonPtr _polyB, Vec2	_point/*, Vec2 _point2*/, Vec2 _normal, Vec2 _tangent, float _distance)
+		: polyA(_polyA), polyB(_polyB), point(_point), /*point2(_point2),*/ normal(_normal), tangent(_tangent), distance(_distance) {}
 
 	CPolygonPtr	polyA, polyB;
 
 	Vec2	point;
+	//Vec2	point2;
+
 	Vec2	normal;
-	Vec2	normalDerivative;
+	Vec2	tangent;
 	float	distance;
+	Vec2	relativeVelocity;
 
+	float	lastTangentImpulse;
+	float	lastNormalImpulse;
+	Vec2	lastCollisionPoint;
 
+	std::tuple<size_t, size_t> index = std::make_tuple(0,0);
 
 	size_t			manifoldSize = 0;
 	SContactInfo	manifold[2];

@@ -17,6 +17,7 @@ enum class Key : unsigned int
 	NumPad3,
 	NumPad4,
 	NumPad5,
+	NumPad6,
 
 	Count,
 };

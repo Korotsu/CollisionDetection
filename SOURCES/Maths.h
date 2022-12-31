@@ -6,7 +6,6 @@
 #include <float.h>
 #include <vector>
 
-
 #define RAD2DEG(x) ((x)*(180.0f/(float)M_PI))
 #define DEG2RAD(x) ((x)*((float)M_PI/180.0f))
 constexpr float EPSILON = 0.01f;
@@ -41,13 +40,19 @@ float Random(float from, float to);
 
 float ClampAngleRadians(float angle);
 
+struct Vec3;
+
 struct Vec2
 {
 	float x, y;
 
-	Vec2() : x(0.0f), y(0.0f){}
+	Vec2() : x(0.0f), y(0.0f) {}
 
-	Vec2(float _x, float _y) : x(_x), y(_y){}
+	Vec2(float _x, float _y) : x(_x), y(_y) {}
+
+	Vec2(const Vec3& _vec3);
+
+	inline void operator=(const Vec3& rhs);
 
 	inline Vec2 operator+(const Vec2& rhs) const
 	{
@@ -60,6 +65,8 @@ struct Vec2
 		y += rhs.y;
 		return *this;
 	}
+
+	inline Vec2& operator+=(const Vec3& rhs);
 
 	inline Vec2 operator-(const Vec2& rhs) const
 	{
@@ -104,7 +111,7 @@ struct Vec2
 	{
 		return x * rhs.y - y * rhs.x;
 	}
-	
+
 	inline bool  IsZero() const
 	{
 		return x == 0.0f && y == 0.0f;
@@ -160,19 +167,156 @@ struct Vec2
 		float angle = RAD2DEG(acosf(cosAngle)) * Sign(*this ^ to);
 		return angle;
 	}
+
+	inline void Rotate(const float angle) //Radians
+	{
+		Vec2 copy = Vec2(*this);
+		x = copy.x * cos(angle) - copy.y * sin(angle);
+		y = copy.x * sin(angle) + copy.y * cos(angle);
+	}
+
+	inline Vec2 Rotated(const float angle) //Radians
+	{
+		Vec2 copy = Vec2(*this);
+		copy.x = x * cos(angle) - y * sin(angle);
+		copy.y = x * sin(angle) + y * cos(angle);
+		return copy;
+	}
 };
 
 Vec2 minv(const Vec2& a, const Vec2& b);
 Vec2 maxv(const Vec2& a, const Vec2& b);
 
+
+struct Vec3
+{
+	float x, y, z;
+
+	Vec3() : x(0.0f), y(0.0f), z(0.0f) {}
+
+	Vec3(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}
+
+	Vec3(Vec2 vec2) : x(vec2.x), y(vec2.y), z(0.0f) {}
+
+	inline Vec3 operator+(const Vec3& rhs) const
+	{
+		return Vec3(x + rhs.x, y + rhs.y, z + rhs.z);
+	}
+
+	inline Vec3& operator+=(const Vec3& rhs)
+	{
+		x += rhs.x;
+		y += rhs.y;
+		z += rhs.z;
+		return *this;
+	}
+
+	inline Vec3 operator-(const Vec3& rhs) const
+	{
+		return Vec3(x - rhs.x, y - rhs.y, z - rhs.z);
+	}
+
+	inline Vec3& operator-=(const Vec3& rhs)
+	{
+		x -= rhs.x;
+		y -= rhs.y;
+		z -= rhs.z;
+		return *this;
+	}
+
+	inline Vec3 operator*(float factor) const
+	{
+		return Vec3(x * factor, y * factor, z * factor);
+	}
+
+	inline Vec3& operator*=(float factor)
+	{
+		*this = Vec3(x * factor, y * factor, z * factor);
+		return *this;
+	}
+
+	inline Vec3 operator/(float factor) const
+	{
+		return Vec3(x / factor, y / factor, z / factor);
+	}
+
+	inline Vec3& operator/=(float factor)
+	{
+		*this = Vec3(x / factor, y / factor, z / factor);
+		return *this;
+	}
+
+	inline float operator|(const Vec3& rhs) const
+	{
+		return x * rhs.x + y * rhs.y + z * rhs.z;
+	}
+
+	inline Vec3 operator^(const Vec3& rhs) const
+	{
+		return Vec3(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x);
+	}
+
+	inline bool IsZero() const
+	{
+		return x == 0.0f && y == 0.0f && z == 0.0f;
+	}
+
+	inline bool operator==(const Vec3& other) const
+	{
+		return (x == other.x && y == other.y && z == other.z);
+	}
+
+	inline bool operator!=(const Vec3& other) const
+	{
+		return (x != other.x || y != other.y || z != other.z);
+	}
+
+	inline float GetLength() const
+	{
+		return sqrtf(x * x + y * y + z * z);
+	}
+
+	inline float GetSqrLength() const
+	{
+		return x * x + y * y + z * z;
+	}
+
+	inline void	Normalize()
+	{
+		float length = GetLength();
+		x /= length;
+		y /= length;
+		z /= length;
+	}
+
+	inline Vec3	Normalized() const
+	{
+		Vec3 res = *this;
+		res.Normalize();
+		return res;
+	}
+
+	inline static Vec3 GetTangent(const Vec3& direction, const Vec3& normal)
+	{
+		return (direction ^ normal) ^ normal;
+	}
+
+	inline static Vec2 GetTangent(const Vec2& _direction, const Vec2& _normal)
+	{
+		Vec3 direction = Vec3(_direction);
+		Vec3 normal = Vec3(_normal);
+		return Vec2((direction ^ normal) ^ normal);
+	}
+};
+
 struct Mat2
 {
 	Vec2 X, Y;
 
-	Mat2() : X(1.0f, 0.0f), Y(0.0f, 1.0f){}
+	Mat2() : X(1.0f, 0.0f), Y(0.0f, 1.0f) {}
 
 
-	Mat2(float a, float b, float c, float d) : X(a, c), Y(b, d){}
+	Mat2(float a, float b, float c, float d) : X(a, c), Y(b, d) {}
 
 	float	GetDeterminant() const
 	{
@@ -181,7 +325,7 @@ struct Mat2
 
 	Mat2	GetInverse() const
 	{
-		return Mat2(Y.y, -X.y, -Y.x, X.x) * (1.0f/GetDeterminant());
+		return Mat2(Y.y, -X.y, -Y.x, X.x) * (1.0f / GetDeterminant());
 	}
 
 	Mat2	GetInverseOrtho() const
@@ -214,7 +358,7 @@ struct Mat2
 	{
 		return Mat2(X.x * rhs.X.x + Y.x * rhs.X.y, X.x * rhs.Y.x + Y.x * rhs.Y.y, X.y * rhs.X.x + Y.y * rhs.X.y, X.y * rhs.Y.x + Y.y * rhs.Y.y);
 	}
-	
+
 	Mat2 operator*(float factor) const
 	{
 		return Mat2(X.x * factor, Y.x * factor, X.y * factor, Y.y * factor);
@@ -225,8 +369,13 @@ struct Mat2
 		return Vec2(X.x * vec.x + Y.x * vec.y, X.y * vec.x + Y.y * vec.y);
 	}
 
-// make sure that pt1 and pt2 are not clipping through
-bool Clip(const Vec2& center, const Vec2& normal, Vec2& pt1, Vec2& pt2);
+	inline Vec3 operator*(const Vec3& vec) const
+	{
+		return Vec3(X.x * vec.x + Y.x * vec.y, X.y * vec.x + Y.y * vec.y, vec.z);
+	}
+
+	// make sure that pt1 and pt2 are not clipping through
+	bool Clip(const Vec2& center, const Vec2& normal, Vec2& pt1, Vec2& pt2);
 
 	inline bool operator==(const Mat2& other) const
 	{
@@ -245,7 +394,7 @@ struct Line
 	float length;
 
 	Line() = default;
-	Line(Vec2 _point, Vec2 _dir, float _length) : point(_point), dir(_dir), length(_length){}
+	Line(Vec2 _point, Vec2 _dir, float _length) : point(_point), dir(_dir), length(_length) {}
 
 	inline Vec2	GetNormal() const
 	{
