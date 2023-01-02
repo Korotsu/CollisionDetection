@@ -8,9 +8,11 @@
 
 class CSceneBouncingPolys : public CBaseScene
 {
+private:
+	Vec2 polySize = Vec2(1.0f, 1.0f);
 public:
-	CSceneBouncingPolys(size_t polyCount)
-		: m_polyCount(polyCount){}
+	CSceneBouncingPolys(size_t polyCount, Vec2 _polySize = Vec2(1.0f, 1.0f))
+		: m_polyCount(polyCount), polySize(_polySize){}
 
 protected:
 	virtual void Create() override
@@ -24,8 +26,8 @@ protected:
 		float height = gVars->pRenderer->GetWorldHeight();
 
 		SRandomPolyParams params;
-		params.minRadius = 5.0f;
-		params.maxRadius = 10.0f;
+		params.minRadius = polySize.x;
+		params.maxRadius = polySize.y;
 		params.minBounds = Vec2(-width * 0.5f + params.maxRadius * 3.0f, -height * 0.5f + params.maxRadius * 3.0f);
 		params.maxBounds = params.minBounds * -1.0f;
 		params.minPoints = 3;

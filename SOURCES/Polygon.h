@@ -21,8 +21,8 @@ public:
 
 	Vec2				position;
 	Mat2				rotation;
-	float				bounciness = 0.0f;
-	float				friction = 0.5f;
+	float				bounciness = 1.0f;
+	float				friction = 0.0f;
 
 	inline void SetPosition(const Vec2& inPosition)
 	{
@@ -61,7 +61,6 @@ public:
 	void				EPADebug(std::vector<Vec2>& polytope, CPolygon& poly, SCollision& collisionInfo, Vec2& otherResult);
 	// If line intersect polygon, colDist is the penetration distance, and colPoint most penetrating point of poly inside the line
 	bool				IsLineIntersectingPolygon(const Line& line, Vec2& colPoint, float& colDist) const;
-	//void				UpdateAABB();
 	float				GetMass() const;
 	float				GetInertiaTensor() const;
 	float				GetInversedInertiaTensor() const;
@@ -92,28 +91,6 @@ public:
 		}
 		return support;
 	}
-
-	/*inline const std::vector<Vec2> MultiPointsSupport(const Vec2& dir) const
-	{
-		std::vector<Vec2> supports;
-		float maxProjection = -FLT_MAX;
-		float tolerance = 0.1f;
-		for (Vec2 vertex : points)
-		{
-			vertex = rotation * vertex + position;
-			float projection = vertex | dir;
-			if (projection )
-			{
-
-			}
-			if (projection > maxProjection)
-			{
-				maxProjection = projection;
-				support = vertex;
-			}
-		}
-		return support;
-	}*/
 
 	inline const std::vector<Vec2> MinkovskiDiff(const CPolygon& poly, std::vector<Vec2>& outABase, std::vector<Vec2>& outBBase) const
 	{

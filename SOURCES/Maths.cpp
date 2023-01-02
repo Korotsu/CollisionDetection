@@ -137,7 +137,6 @@ inline Vec2& Vec2::operator+=(const Vec3& rhs)
 	return *this;
 }
 
-
 /*float KernelDefault(float r, float h)
 {
 	float h2 = h * h;

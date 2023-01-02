@@ -12,13 +12,22 @@ The goal of the project is to implement a performant collision detection algorit
 **Debug tools** : I also created an optimized AABB creator and drawer to create/modify AABB only when needed to save performance.
 In addition to the optimized AABB creator/drawer, i implemented new inputs to help visualize collision elements:
 -F8 to open the draw debug element menu + visualization.
--Numpad 0,1,2,3 to toggle some elements which should be drawn or not.
+-Numpad 0,1,2,3,4,5,6 to toggle some elements which should be drawn or not.
 those toggled elements are :
--AABB colliding state (blue == not colliding, green == colliding).
--minkowski shape and minkowski creation.
--GJK last simplex and collision hit result (the purple line).
+-AABB colliding state (blue == not colliding, green == colliding) (Num0).
+-minkowski shape and minkowski creation (Num1 and Num2).
+-GJK last simplex and collision hit result (the purple line) (Num3 and Num4).
+-Collission (Num5).
+-Gravity (Num6).
 
-The base color for colliding shape is the same as the AABB (blue == not colliding, green == colliding). 
+The base color for colliding shape is the same as the AABB (blue == not colliding, green == colliding).
+
+**Response** : I implemented a sequencial collision response with constraint solver.
+I handled the position and velocity constraints and also included a warm start to help with stabilization.
+I also handled friction. All the collision response is based on impulse.
+The system also keep in memory previous contact to improve stabilization.
+
+The system still have some bugs and problem i should work with which can ruin the experience with the physics engine. (relative to velocity constraint).
 
 ## Clips
 **Broad phase**
@@ -34,5 +43,11 @@ The base color for colliding shape is the same as the AABB (blue == not collidin
 ![003](./SCREENS/Gifs/008.gif)
 ![004](./SCREENS/Gifs/009.gif)
 ![005](./SCREENS/Gifs/010.gif)
+
+**Response**
+![001](./SCREENS/Gifs/011.gif)
+![002](./SCREENS/Gifs/012.gif)
+![003](./SCREENS/Gifs/013.gif)
+![004](./SCREENS/Gifs/014.gif)
 
 > Note: All gifs/clips were taken with gyazo, as so the framerate is low to save on file size.

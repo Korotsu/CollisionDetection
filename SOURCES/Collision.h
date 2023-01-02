@@ -78,11 +78,14 @@ struct SCollision
 	Vec2	normal;
 	Vec2	tangent;
 	float	distance;
+	float	baseSeparation;
 	Vec2	relativeVelocity;
 
 	float	lastTangentImpulse;
 	float	lastNormalImpulse;
 	Vec2	lastCollisionPoint;
+	float	normalMass;
+	float	tangentMass;
 
 	std::tuple<size_t, size_t> index = std::make_tuple(0,0);
 

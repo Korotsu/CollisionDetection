@@ -112,6 +112,11 @@ struct Vec2
 		return x * rhs.y - y * rhs.x;
 	}
 
+	inline Vec2 operator^(float s)
+	{
+		return Vec2(s * y, -s * x);
+	}
+
 	inline bool  IsZero() const
 	{
 		return x == 0.0f && y == 0.0f;

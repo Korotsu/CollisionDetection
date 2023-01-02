@@ -310,8 +310,18 @@ void CPolygon::EPA(std::vector<Vec2>& polytope, CPolygon& poly, SCollision& coll
 
 				}
 			}
-			collisionInfo.relativeVelocity = (collisionInfo.polyA->speed - collisionInfo.polyB->speed);
+
+			Vec2 rAi = collisionInfo.point - collisionInfo.polyA->position;
+			Vec2 rBi = collisionInfo.point - collisionInfo.polyB->position;
+			
+			collisionInfo.baseSeparation = collisionInfo.distance + rAi.GetLength() + rBi.GetLength();
+			
+			Vec2 velA = collisionInfo.polyA->speed + (rAi ^ collisionInfo.polyA->angularVelocity);
+			Vec2 velB = collisionInfo.polyB->speed + (rBi ^ collisionInfo.polyB->angularVelocity);
+			
+			collisionInfo.relativeVelocity = (velA - velB);
 			collisionInfo.tangent = Vec3::GetTangent(collisionInfo.relativeVelocity, collisionInfo.normal);
+
 			return;
 		}
 		polytope.insert(polytope.begin() + minIndex, C);
@@ -420,7 +430,15 @@ void CPolygon::EPADebug(std::vector<Vec2>& polytope, CPolygon& poly, SCollision&
 					otherResult = pt1;
 				}
 			}
-			collisionInfo.relativeVelocity = (collisionInfo.polyA->speed - collisionInfo.polyB->speed);
+			Vec2 rAi = collisionInfo.point - collisionInfo.polyA->position;
+			Vec2 rBi = collisionInfo.point - collisionInfo.polyB->position;
+
+			collisionInfo.baseSeparation = collisionInfo.distance + rAi.GetLength() + rBi.GetLength();
+
+			Vec2 velA = collisionInfo.polyA->speed + (rAi ^ collisionInfo.polyA->angularVelocity);
+			Vec2 velB = collisionInfo.polyB->speed + (rBi ^ collisionInfo.polyB->angularVelocity);
+
+			collisionInfo.relativeVelocity = (velA - velB);
 			collisionInfo.tangent = Vec3::GetTangent(collisionInfo.relativeVelocity, collisionInfo.normal);
 			return;
 		}
@@ -435,7 +453,7 @@ float CPolygon::GetMass() const
 
 float CPolygon::GetInertiaTensor() const
 {
-	return m_localInertiaTensor * GetMass();
+	return /*m_localInertiaTensor */ GetMass();
 }
 
 float CPolygon::GetInversedInertiaTensor() const
