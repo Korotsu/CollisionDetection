@@ -21,7 +21,7 @@ public:
 
 	Vec2				position;
 	Mat2				rotation;
-	float				bounciness = 0.9f;
+	float				bounciness = 0.5f;
 	float				friction = 0.5f;
 
 	inline void SetPosition(const Vec2& inPosition)
@@ -62,6 +62,7 @@ public:
 	// If line intersect polygon, colDist is the penetration distance, and colPoint most penetrating point of poly inside the line
 	bool				IsLineIntersectingPolygon(const Line& line, Vec2& colPoint, float& colDist) const;
 	float				GetMass() const;
+	float				GetInvMass() const;
 	float				GetInertiaTensor() const;
 	float				GetInversedInertiaTensor() const;
 

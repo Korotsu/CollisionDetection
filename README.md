@@ -27,7 +27,11 @@ I handled the position and velocity constraints and also included a warm start t
 I also handled friction. All the collision response is based on impulse.
 The system also keep in memory previous contact to improve stabilization.
 
-The system still have some bugs and problem i should work with which can ruin the experience with the physics engine. (relative to velocity constraint).
+The system has a major issues with stabilization because constraint solver should have more than one point of collision for surface that are stick to each other.
+As my system only have 1 point, it result with big impulse when object are sitcking together so an effect of explosion might be seen because of the point being far away which increase the impulse intensity.
+Also static object create sometimes too big impulse as their inverse weight is zero.
+
+Without those mentionned problem the system would be almost perfect.
 
 ## Clips
 **Broad phase**
