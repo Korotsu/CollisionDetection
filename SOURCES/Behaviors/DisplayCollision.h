@@ -40,16 +40,16 @@ private:
 				if (gVars->bToggleEPADebug)
 				{
 					gVars->pRenderer->DisplayTextWorld("pt1", collisionInfo.point);
-					gVars->pRenderer->DrawLine(collisionInfo.point, collisionInfo.point - collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
+					gVars->pRenderer->DrawLine(collisionInfo.point, collisionInfo.point + collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
 
 					gVars->pRenderer->DisplayTextWorld("pt2", otherResult);
-					gVars->pRenderer->DrawLine(otherResult, otherResult + collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
+					gVars->pRenderer->DrawLine(otherResult, otherResult - collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
 
 				}
 				else
 				{
 					gVars->pRenderer->DisplayTextWorld("pt", collisionInfo.point);
-					gVars->pRenderer->DrawLine(collisionInfo.point, collisionInfo.point - collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
+					gVars->pRenderer->DrawLine(collisionInfo.point, collisionInfo.point + collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
 				}
 
 				if (gVars->bToggleLastSimplexDraw)
@@ -91,7 +91,9 @@ private:
 			gVars->pRenderer->DisplayText("Collision distance : " + std::to_string(collisionInfo.distance), 50, 50);
 
 			gVars->pRenderer->DisplayTextWorld("pt", collisionInfo.point);
-			gVars->pRenderer->DrawLine(collisionInfo.point, collisionInfo.point - collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
+			gVars->pRenderer->DisplayTextWorld("A", collisionInfo.polyA->position);
+			gVars->pRenderer->DisplayTextWorld("B", collisionInfo.polyB->position);
+			gVars->pRenderer->DrawLine(collisionInfo.point, collisionInfo.point + collisionInfo.normal * (collisionInfo.distance - EPSILON), 1.0f, 0.0f, 1.0f);
 		}
 	}
 };

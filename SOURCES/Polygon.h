@@ -21,8 +21,8 @@ public:
 
 	Vec2				position;
 	Mat2				rotation;
-	float				bounciness = 1.0f;
-	float				friction = 0.0f;
+	float				bounciness = 0.9f;
+	float				friction = 0.5f;
 
 	inline void SetPosition(const Vec2& inPosition)
 	{

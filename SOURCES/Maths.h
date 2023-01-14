@@ -107,16 +107,6 @@ struct Vec2
 		return x * rhs.x + y * rhs.y;
 	}
 
-	inline float operator^(const Vec2& rhs) const
-	{
-		return x * rhs.y - y * rhs.x;
-	}
-
-	inline Vec2 operator^(float s)
-	{
-		return Vec2(s * y, -s * x);
-	}
-
 	inline bool  IsZero() const
 	{
 		return x == 0.0f && y == 0.0f;
@@ -186,6 +176,21 @@ struct Vec2
 		copy.x = x * cos(angle) - y * sin(angle);
 		copy.y = x * sin(angle) + y * cos(angle);
 		return copy;
+	}
+
+	inline float operator^(const Vec2& rhs) const
+	{
+		return x * rhs.y - y * rhs.x;
+	}
+
+	inline Vec2 operator^(float s)
+	{
+		return Vec2(s * y, -s * x);
+	}
+
+	inline static Vec2 Cross(float lhs, Vec2& rhs)
+	{
+		return Vec2(-lhs * rhs.y, rhs.x * lhs);
 	}
 };
 
@@ -306,12 +311,12 @@ struct Vec3
 		return (direction ^ normal) ^ normal;
 	}
 
-	inline static Vec2 GetTangent(const Vec2& _direction, const Vec2& _normal)
+	/*inline static Vec2 GetTangent(const Vec2& _direction, const Vec2& _normal)
 	{
 		Vec3 direction = Vec3(_direction);
 		Vec3 normal = Vec3(_normal);
 		return Vec2((direction ^ normal) ^ normal);
-	}
+	}*/
 };
 
 struct Mat2
